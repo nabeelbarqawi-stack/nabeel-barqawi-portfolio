@@ -1,153 +1,269 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useScrollProgress, mapRange } from "@/hooks/useScrollUtils";
+import Reveal from "./Reveal";
 
-interface CaseStudy {
-  company: string;
-  title: string;
-  description: string;
-  tags: string[];
-  metrics: { value: string; label: string }[];
+interface Metric {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  decimals?: number;
+  label: string;
+}
+interface DetailBlock {
+  label: string;
+  body: string;
+}
+interface Project {
+  name: string;
+  tag: string;
+  summary: string;
+  gradient: string;
+  accent: string;
+  chip: string;
+  lines: number[];
+  pills: string[];
+  metrics: Metric[];
+  detail: DetailBlock[];
 }
 
-const cases: CaseStudy[] = [
-  {
-    company: "Disney",
-    title: "AI Agent — Disney",
-    description:
-      "AI-powered virtual assistant serving tens of millions of customers across Disney's digital ecosystem. Designed to handle the full service journey — from discovery to resolution — at massive scale.",
-    tags: ["Conversational AI", "Enterprise", "Product Strategy"],
-    metrics: [
-      { value: "2M+", label: "Monthly users" },
-      { value: "2.8%", label: "Conversion rate" },
-      { value: "~97%", label: "Containment" },
-    ],
-  },
-  {
-    company: "CarMax",
-    title: "AI Agent — CarMax",
-    description:
-      "End-to-end conversational AI spanning web and SMS channels, transforming how millions of car buyers interact with CarMax — from initial inquiry through purchase decisions.",
-    tags: ["Conversational AI", "Omnichannel", "Automation"],
-    metrics: [
-      { value: "40%", label: "Containment rate" },
-      { value: "$5M+", label: "Cost savings" },
-      { value: "+16%", label: "Automation lift" },
-    ],
-  },
-];
-
-function CaseStudyPanel({ study, index }: { study: CaseStudy; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
-  const [hovered, setHovered] = useState(false);
+function MetricCounter({ value, suffix = "", prefix = "", decimals = 0, inView }: Metric & { inView: boolean }) {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const start = performance.now();
+    const duration = 1400;
+    let raf: number;
+    const tick = (t: number) => {
+      const p = Math.min((t - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setN(value * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value]);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.15 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative flex flex-col justify-between bg-[#111113] border border-[rgba(255,255,255,0.06)] rounded-2xl p-8 md:p-10 overflow-hidden cursor-default"
-    >
-      {/* Hover glow */}
-      <motion.div
-        aria-hidden
-        animate={{ opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.4 }}
-        className="pointer-events-none absolute inset-0 rounded-2xl"
+    <span>
+      {prefix}
+      {decimals ? n.toFixed(decimals) : Math.round(n).toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
+
+function CaseStudy({ index, project, expanded, onToggle }: {
+  index: number;
+  project: Project;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const p = useScrollProgress(ref as React.RefObject<HTMLElement | null>, "through");
+  const inView = p > 0.2;
+
+  const visualScale = mapRange(p, 0.0, 0.5, 0.88, 1);
+  const visualY = mapRange(p, 0.0, 0.5, 60, 0);
+  const visualOpacity = mapRange(p, 0.0, 0.35, 0, 1);
+  const headerY = mapRange(p, 0.1, 0.5, 40, 0);
+  const headerOpacity = mapRange(p, 0.1, 0.5, 0, 1);
+
+  return (
+    <article ref={ref} className="case">
+      <div
+        className="case-header"
         style={{
-          background:
-            "radial-gradient(ellipse 70% 60% at 20% 30%, rgba(230,160,75,0.06) 0%, transparent 70%)",
+          opacity: headerOpacity,
+          transform: `translateY(${headerY}px)`,
+          transition: "opacity 120ms linear, transform 120ms linear",
         }}
-      />
-
-      {/* Top: company tag + title */}
-      <div className="relative z-10">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-xs font-medium tracking-[0.18em] text-[#E6A04B] uppercase">
-            {study.company}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+          <span style={{ fontSize: 11, letterSpacing: "0.15em", color: "var(--fg-dimmer)" }}>
+            CASE {String(index + 1).padStart(2, "0")}
           </span>
+          <span style={{ width: 40, height: 1, background: "var(--hairline-strong)", display: "block" }} />
+          <span style={{ fontSize: 11, letterSpacing: "0.15em", color: "var(--fg-dim)" }}>{project.tag}</span>
         </div>
+        <h3 className="case-title">{project.name}</h3>
+        <p className="case-summary">{project.summary}</p>
+      </div>
 
-        <h3 className="text-[clamp(1.4rem,2.5vw,2rem)] font-semibold tracking-[-0.02em] text-[#F5F5F5] mb-4 leading-tight">
-          {study.title}
-        </h3>
-
-        <p className="text-[0.95rem] font-light leading-relaxed text-[#F5F5F5]/50 mb-8">
-          {study.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          {study.tags.map((t) => (
-            <span
-              key={t}
-              className="text-xs font-medium px-3 py-1 rounded-full border border-[rgba(255,255,255,0.08)] text-[#F5F5F5]/40"
-            >
-              {t}
-            </span>
-          ))}
+      {/* Visual */}
+      <div
+        className="case-visual"
+        style={{
+          opacity: visualOpacity,
+          transform: `translateY(${visualY}px) scale(${visualScale})`,
+          transformOrigin: "center 60%",
+          willChange: "transform, opacity",
+          transition: "opacity 140ms linear, transform 140ms linear",
+        }}
+      >
+        <div className="case-visual-inner" style={{ background: project.gradient }}>
+          <div className="case-surface">
+            <div className="case-chip">
+              <span className="case-chip-dot" style={{ background: project.accent }} />
+              <span>{project.chip}</span>
+            </div>
+            <div className="case-lines">
+              {project.lines.map((l, i) => (
+                <div
+                  key={i}
+                  className="case-line"
+                  style={{
+                    width: l + "%",
+                    opacity: inView ? 1 : 0,
+                    transition: `opacity 700ms ${i * 120 + 200}ms, transform 700ms ${i * 120 + 200}ms`,
+                    transform: inView ? "translateX(0)" : "translateX(-12px)",
+                  }}
+                />
+              ))}
+            </div>
+            <div className="case-pill-row">
+              {project.pills.map((pill, i) => (
+                <div
+                  key={i}
+                  className="case-pill"
+                  style={{
+                    opacity: inView ? 1 : 0,
+                    transform: inView ? "translateY(0)" : "translateY(8px)",
+                    transition: `opacity 600ms ${600 + i * 80}ms, transform 600ms ${600 + i * 80}ms`,
+                  }}
+                >
+                  {pill}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Metrics */}
-      <div className="relative z-10 grid grid-cols-3 gap-4 pt-8 border-t border-[rgba(255,255,255,0.06)]">
-        {study.metrics.map((m) => (
-          <div key={m.label}>
-            <div className="text-[clamp(1.4rem,2vw,1.8rem)] font-semibold text-[#F5F5F5] tracking-tight leading-none mb-1.5">
-              {m.value}
+      <div className="case-metrics">
+        {project.metrics.map((m, i) => (
+          <div key={i} className="metric">
+            <div className="metric-value">
+              <MetricCounter {...m} inView={inView} />
             </div>
-            <div className="text-xs text-[#F5F5F5]/35 font-light leading-relaxed">
-              {m.label}
-            </div>
+            <div className="metric-label">{m.label}</div>
           </div>
         ))}
       </div>
-    </motion.div>
+
+      {/* Expand */}
+      <button className="case-expand" onClick={onToggle} aria-expanded={expanded}>
+        <span>{expanded ? "Collapse" : "Read the detail"}</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: expanded ? "rotate(180deg)" : "none", transition: "transform 400ms" }}>
+          <path d="M3 5 L7 9 L11 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {/* Detail drawer */}
+      <div
+        style={{
+          maxHeight: expanded ? 600 : 0,
+          opacity: expanded ? 1 : 0,
+          overflow: "hidden",
+          transition: "max-height 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms",
+          marginTop: expanded ? 24 : 0,
+        }}
+      >
+        <div className="case-detail-inner">
+          {project.detail.map((block, i) => (
+            <div key={i} className="detail-block">
+              <div className="detail-label">{block.label}</div>
+              <p className="detail-body">{block.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
   );
 }
 
+const projects: Project[] = [
+  {
+    name: "Disney AI Agent",
+    tag: "Entertainment · Conversational AI",
+    summary:
+      "An AI-powered virtual assistant supporting 2M+ monthly users — scaled automations across sign-up, account management, and refunds.",
+    gradient: "linear-gradient(135deg, #0b1530 0%, #1a1f4d 50%, #0d1b3a 100%)",
+    accent: "#6ea8ff",
+    chip: "Live · Automated Assist",
+    lines: [82, 64, 74, 48],
+    pills: ["Sign-up", "Account", "Refunds", "Billing"],
+    metrics: [
+      { value: 2, suffix: "M+", label: "Monthly users" },
+      { value: 97, suffix: "%", label: "Containment" },
+      { value: 2.8, suffix: "%", label: "Conversion", decimals: 1 },
+    ],
+    detail: [
+      { label: "Context", body: "A sprawling product surface meant support volume was scaling faster than the team could staff. The assistant had to understand intent across dozens of account states without sending users back to humans unnecessarily." },
+      { label: "Approach", body: "Mapped the top 40 intents against real conversation logs, then rebuilt the automation tree around what users were actually trying to do — not what the org chart said. Built a feedback loop so low-confidence turns went to human review and fed back into training." },
+      { label: "Outcome", body: "Reached ~97% containment on covered intents while lifting conversion on paywalled flows. The same pattern now powers three adjacent surfaces." },
+    ],
+  },
+  {
+    name: "CarMax AI Agent",
+    tag: "Retail · Web + SMS",
+    summary:
+      "Conversational AI across web and SMS — millions of interactions annually, reduced engineering overhead, and $5M+ in cost savings.",
+    gradient: "linear-gradient(135deg, #1a0f0a 0%, #3a2418 50%, #1c120b 100%)",
+    accent: "#ffb17a",
+    chip: "Omnichannel · Web + SMS",
+    lines: [70, 88, 56, 72],
+    pills: ["Inventory", "Financing", "Trade-in", "Delivery"],
+    metrics: [
+      { value: 40, suffix: "%", label: "Containment" },
+      { value: 5, prefix: "$", suffix: "M+", label: "Cost savings" },
+      { value: 1.2, suffix: "M/yr", label: "Interactions", decimals: 1 },
+    ],
+    detail: [
+      { label: "Context", body: "Two channels with very different expectations — SMS needed to feel like a friendly text, web needed to feel like a polished concierge. Both had to hand off to a human without losing state." },
+      { label: "Approach", body: "Designed a channel-aware response layer on top of a single intent model, so the same brain produced channel-native copy. Instrumented every handoff so we could measure real containment, not just deflection." },
+      { label: "Outcome", body: "Lifted automation success materially, reduced engineering overhead on maintenance, and unlocked $5M+ in annualized cost savings." },
+    ],
+  },
+];
+
 export default function SelectedWork() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
+  const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <section
-      ref={ref}
-      className="relative px-6 md:px-16 lg:px-24 py-28 border-t border-[rgba(255,255,255,0.06)]"
-    >
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-24 mb-14 items-start">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6 }}
-            className="md:w-48 shrink-0"
-          >
-            <span className="text-xs font-medium tracking-[0.2em] text-[#E6A04B] uppercase">
-              Selected Work
-            </span>
-          </motion.div>
+    <section id="work" className="section" style={{ borderTop: "1px solid var(--hairline)" }}>
+      <div className="container">
+        <Reveal>
+          <div className="eyebrow">
+            <span className="eyebrow-dot" /> 03 — Selected work
+          </div>
+        </Reveal>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 14 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-[clamp(1.8rem,4vw,3rem)] font-semibold tracking-[-0.02em] text-[#F5F5F5]"
-          >
-            Products at scale.
-          </motion.h2>
-        </div>
+        <Reveal delay={120}>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginTop: 32, flexWrap: "wrap" }}>
+            <h2 className="section-title" style={{ maxWidth: 900 }}>
+              Two projects. Millions of users. Measurable outcomes.
+            </h2>
+            <a href="/nabeel-barqawi-resume.pdf" target="_blank" rel="noopener" className="resume-link">
+              <span>Download résumé</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 2 V10 M3.5 6.5 L7 10 L10.5 6.5 M2.5 12 H11.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </Reveal>
 
-        {/* Side-by-side panels */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {cases.map((study, i) => (
-            <CaseStudyPanel key={study.company} study={study} index={i} />
+        <div className="work-grid">
+          {projects.map((p, i) => (
+            <CaseStudy
+              key={p.name}
+              index={i}
+              project={p}
+              expanded={expanded === i}
+              onToggle={() => setExpanded(expanded === i ? null : i)}
+            />
           ))}
         </div>
       </div>
