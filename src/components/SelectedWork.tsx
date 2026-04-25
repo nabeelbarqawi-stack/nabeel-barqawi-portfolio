@@ -219,7 +219,7 @@ const projects: Project[] = [
     metrics: [
       { value: 40, suffix: "%", label: "Containment" },
       { value: 5, prefix: "$", suffix: "M+", label: "Cost savings" },
-      { value: 1.2, suffix: "M/yr", label: "Interactions", decimals: 1 },
+      { value: 16, prefix: "+", suffix: "%", label: "Automation improvement" },
     ],
     detail: [
       { label: "Context", body: "Two channels with very different expectations — SMS needed to feel like a friendly text, web needed to feel like a polished concierge. Both had to hand off to a human without losing state." },

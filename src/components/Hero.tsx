@@ -90,7 +90,7 @@ export default function Hero() {
               }}
             />
             <span style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--fg-dim)" }}>
-              Open to select work
+              Product &amp; AI
             </span>
           </div>
         </Reveal>
@@ -98,10 +98,8 @@ export default function Hero() {
         {/* Headline */}
         <Reveal delay={200}>
           <h1 className="hero-headline">
-            Turning complexity<br />
-            into products<br />
-            that{" "}
-            <em className="serif-accent">actually work</em>
+            Making complex<br />
+            systems <em className="serif-accent">simple</em>
             <span style={{ color: "var(--accent)" }}>.</span>
           </h1>
         </Reveal>
@@ -109,14 +107,14 @@ export default function Hero() {
         {/* Subline */}
         <Reveal delay={420} y={14}>
           <p className="hero-subline">
-            AI-powered. Human-centered. Built to scale.
+            AI-powered. Human-centered. Product-driven.
           </p>
         </Reveal>
 
         {/* Support */}
         <Reveal delay={600} y={12}>
           <p className="hero-support">
-            I build AI-powered experiences used by millions.
+            I build products and experiences used by millions.
           </p>
         </Reveal>
 

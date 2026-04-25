@@ -3,12 +3,10 @@
 import Reveal from "./Reveal";
 
 const items = [
-  "Makes complex AI intuitive",
-  "Brings clarity to ambiguous problems",
+  "Makes complex systems intuitive",
+  "Brings clarity to ambiguity",
   "Trusted across teams and leadership",
-  "Turns ideas into real, scalable products",
-  "Thinks in systems, ships like a builder",
-  "Calm in the face of complexity",
+  "Turns ideas into real products",
 ];
 
 export default function Proof() {
