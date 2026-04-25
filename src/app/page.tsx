@@ -1,7 +1,7 @@
-import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Philosophy from "@/components/Philosophy";
+import ParticleSectionLoader from "@/components/ParticleSectionLoader";
 import Approach from "@/components/Approach";
 import SelectedWork from "@/components/SelectedWork";
 import Services from "@/components/Services";
@@ -10,8 +10,6 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
-const ParticleSection = dynamic(() => import("@/components/ParticleSection"), { ssr: false });
-
 export default function Home() {
   return (
     <>
@@ -19,7 +17,7 @@ export default function Home() {
       <main>
         <Hero />
         <Philosophy />
-        <ParticleSection />
+        <ParticleSectionLoader />
         <Approach />
         <SelectedWork />
         <Services />
