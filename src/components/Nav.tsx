@@ -25,10 +25,10 @@ export default function Nav() {
         zIndex: 50,
         padding: scrolled ? "14px 0" : "28px 0",
         transition: "padding 400ms cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 400ms",
-        backdropFilter: scrolled ? "saturate(140%) blur(18px)" : "blur(0)",
-        WebkitBackdropFilter: scrolled ? "saturate(140%) blur(18px)" : "blur(0)",
-        background: scrolled ? "rgba(10,10,11,0.72)" : "transparent",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+        backdropFilter: (scrolled || open) ? "saturate(140%) blur(18px)" : "blur(0)",
+        WebkitBackdropFilter: (scrolled || open) ? "saturate(140%) blur(18px)" : "blur(0)",
+        background: (scrolled || open) ? "rgba(10,10,11,0.94)" : "transparent",
+        borderBottom: (scrolled || open) ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
       }}
     >
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -81,14 +81,15 @@ export default function Nav() {
         className="mobile-menu"
         style={{
           display: "none",
-          maxHeight: open ? 320 : 0,
+          maxHeight: open ? 360 : 0,
           overflow: "hidden",
           transition: "max-height 400ms cubic-bezier(0.16, 1, 0.3, 1)",
           borderTop: open ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-          marginTop: open ? 14 : 0,
+          marginTop: open ? 12 : 0,
+          background: "rgba(10,10,11,0.98)",
         }}
       >
-        <div className="container" style={{ padding: "20px 0", display: "flex", flexDirection: "column", gap: 18 }}>
+        <div className="container" style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column", gap: 20 }}>
           {links.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)} style={{ fontSize: 18, color: "var(--fg)", textDecoration: "none" }}>
               {label}

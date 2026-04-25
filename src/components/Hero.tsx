@@ -23,34 +23,46 @@ export default function Hero() {
       id="top"
       className="hero-section"
     >
-      {/* Ambient glow — left */}
+      {/* Ambient glow — coral left */}
       <div
         aria-hidden
         style={{
           position: "absolute",
-          top: "20%",
-          left: "-10%",
-          width: "70%",
-          height: "70%",
-          background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 60%)",
-          filter: "blur(80px)",
-          opacity: 0.5,
+          top: "5%",
+          left: "-15%",
+          width: "75%",
+          height: "80%",
+          background: "radial-gradient(ellipse, rgba(255,100,65,0.28) 0%, rgba(255,140,80,0.10) 45%, transparent 70%)",
+          filter: "blur(72px)",
           pointerEvents: "none",
           transform: `translateY(${parallax * 0.3}px)`,
         }}
       />
-      {/* Ambient glow — right */}
+      {/* Ambient glow — periwinkle right */}
       <div
         aria-hidden
         style={{
           position: "absolute",
-          bottom: "-10%",
-          right: "-15%",
-          width: "60%",
-          height: "60%",
-          background: "radial-gradient(circle, var(--glow-secondary) 0%, transparent 60%)",
-          filter: "blur(100px)",
-          opacity: 0.8,
+          bottom: "-20%",
+          right: "-20%",
+          width: "70%",
+          height: "80%",
+          background: "radial-gradient(ellipse, rgba(100,130,235,0.30) 0%, rgba(80,105,210,0.12) 45%, transparent 70%)",
+          filter: "blur(90px)",
+          pointerEvents: "none",
+        }}
+      />
+      {/* Subtle center bloom — peach bridge between the two */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "35%",
+          left: "30%",
+          width: "40%",
+          height: "40%",
+          background: "radial-gradient(ellipse, rgba(255,170,110,0.10) 0%, transparent 70%)",
+          filter: "blur(60px)",
           pointerEvents: "none",
         }}
       />

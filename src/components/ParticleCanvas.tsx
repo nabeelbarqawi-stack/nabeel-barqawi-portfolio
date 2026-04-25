@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from "react";
 
 const WORDS = ["COMPLEXITY", "CLARITY", "PRODUCT", "IMPACT"];
-const AMBER = { r: 230, g: 160, b: 75 };
+const AMBER = { r: 255, g: 105, b: 75 };
 const PARTICLE_SIZE = 2.2;
 const FONT_SIZE_BASE = 120;
 const WORD_HOLD_MS = 2200;
