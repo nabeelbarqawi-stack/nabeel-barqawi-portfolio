@@ -242,7 +242,7 @@ export default function SelectedWork() {
         </Reveal>
 
         <Reveal delay={120}>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginTop: 32, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, marginTop: 32, flexWrap: "wrap" }}>
             <h2 className="section-title" style={{ maxWidth: 900 }}>
               Two projects. Millions of users. Measurable outcomes.
             </h2>

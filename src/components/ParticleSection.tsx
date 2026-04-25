@@ -8,18 +8,27 @@ const ParticleCanvas = dynamic(() => import("./ParticleCanvas"), { ssr: false })
 
 export default function ParticleSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-15%" });
+  const inView = useInView(ref, { once: true, margin: "-10%" });
 
   return (
     <section
       ref={ref}
-      className="relative py-20 border-t border-[rgba(255,255,255,0.06)] overflow-hidden"
+      style={{
+        position: "relative",
+        paddingTop: "clamp(48px, 8vw, 80px)",
+        paddingBottom: "clamp(48px, 8vw, 80px)",
+        borderTop: "1px solid var(--hairline)",
+        overflow: "hidden",
+      }}
     >
-      {/* Vignette overlay for cinematic feel */}
+      {/* Vignette overlay */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-10"
         style={{
+          pointerEvents: "none",
+          position: "absolute",
+          inset: 0,
+          zIndex: 10,
           background:
             "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, #0B0B0C 100%)",
         }}
@@ -30,20 +39,37 @@ export default function ParticleSection() {
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.8 }}
-        className="relative z-20 text-center mb-8"
+        style={{
+          position: "relative",
+          zIndex: 20,
+          textAlign: "center",
+          marginBottom: "clamp(20px, 4vw, 32px)",
+        }}
       >
-        <span className="text-xs font-medium tracking-[0.25em] text-[#F5F5F5]/25 uppercase">
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 500,
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "rgba(245,245,245,0.25)",
+          }}
+        >
           From complexity to clarity
         </span>
       </motion.div>
 
-      {/* Canvas container */}
+      {/* Canvas container — height scales with viewport on mobile */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 1.2, delay: 0.3 }}
-        className="relative z-0 w-full"
-        style={{ height: "340px" }}
+        style={{
+          position: "relative",
+          zIndex: 0,
+          width: "100%",
+          height: "clamp(200px, 45vw, 340px)",
+        }}
       >
         <ParticleCanvas />
       </motion.div>

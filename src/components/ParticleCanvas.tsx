@@ -47,10 +47,11 @@ export default function ParticleCanvas() {
       offscreen.height = H;
       const ctx = offscreen.getContext("2d")!;
 
-      const fontSize = Math.min(FONT_SIZE_BASE, (W * 0.72) / (word.length * 0.6));
+      // Larger coefficient + wider fill so text is legible on narrow screens
+      const fontSize = Math.min(FONT_SIZE_BASE, (W * 0.85) / (word.length * 0.52));
       ctx.clearRect(0, 0, W, H);
       ctx.font = `700 ${fontSize}px Inter, system-ui, sans-serif`;
-      ctx.letterSpacing = "0.06em";
+      // ctx.letterSpacing omitted — not supported in Safari/iOS
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -59,7 +60,9 @@ export default function ParticleCanvas() {
       const imageData = ctx.getImageData(0, 0, W, H);
       const data = imageData.data;
       const pts: { tx: number; ty: number }[] = [];
-      const stride = 5;
+
+      // Smaller stride on narrow screens keeps particle count reasonable
+      const stride = W < 500 ? 3 : 5;
 
       for (let y = 0; y < H; y += stride) {
         for (let x = 0; x < W; x += stride) {
@@ -140,25 +143,26 @@ export default function ParticleCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     stateRef.current.dpr = dpr;
 
+    // Obtain ctx once; resize resets the transform so we use setTransform to restore it
+    const ctx = canvas.getContext("2d")!;
+
     const resize = () => {
       const W = canvas.parentElement?.clientWidth || window.innerWidth;
-      const H = canvas.parentElement?.clientHeight || 400;
+      const H = canvas.parentElement?.clientHeight || 340;
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       canvas.style.width = W + "px";
       canvas.style.height = H + "px";
+      // Resetting canvas dimensions also resets the transform — reapply scale
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       stateRef.current.width = W;
       stateRef.current.height = H;
-
       stateRef.current.particles = [];
       buildScene(stateRef.current.wordIndex, canvas, dpr);
     };
 
     resize();
     window.addEventListener("resize", resize);
-
-    const ctx = canvas.getContext("2d")!;
-    ctx.scale(dpr, dpr);
 
     let last = performance.now();
 
@@ -221,5 +225,5 @@ export default function ParticleCanvas() {
     };
   }, [buildScene, scatter]);
 
-  return <canvas ref={canvasRef} className="block w-full" />;
+  return <canvas ref={canvasRef} style={{ display: "block", width: "100%" }} />;
 }

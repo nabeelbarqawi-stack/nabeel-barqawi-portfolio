@@ -21,16 +21,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="top"
-      style={{
-        minHeight: "100vh",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        paddingTop: 120,
-        paddingBottom: 80,
-        overflow: "hidden",
-      }}
+      className="hero-section"
     >
       {/* Ambient glow — left */}
       <div

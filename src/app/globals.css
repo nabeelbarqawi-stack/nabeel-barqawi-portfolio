@@ -202,6 +202,16 @@ a { color: inherit; }
 /* ============================================================
    HERO
 ============================================================ */
+.hero-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(100px, 14vw, 120px);
+  padding-bottom: clamp(60px, 8vw, 80px);
+  overflow: hidden;
+}
 .hero-headline {
   font-family: var(--font-display);
   font-size: calc(clamp(48px, 9vw, 136px) * var(--hero-scale));
@@ -833,4 +843,48 @@ a { color: inherit; }
 }
 @media (min-width: 761px) {
   .mobile-menu { display: none !important; }
+}
+
+/* ============================================================
+   MOBILE — GLOBAL
+============================================================ */
+@media (max-width: 560px) {
+  .section { padding: clamp(64px, 16vw, 100px) 0; }
+
+  /* Hero */
+  .hero-headline { font-size: clamp(40px, 11vw, 72px); }
+  .hero-subline { font-size: clamp(18px, 4.5vw, 22px); margin-top: 32px; }
+  .hero-support { font-size: 14px; }
+
+  /* Philosophy */
+  .philosophy-prose { font-size: clamp(24px, 6.5vw, 36px); line-height: 1.22; }
+
+  /* Approach */
+  .approach-grid { margin-bottom: 60px; }
+
+  /* Work */
+  .work-grid { margin-top: 56px; gap: 72px; }
+  .case-metrics { grid-template-columns: 1fr; }
+  .case .case-header { max-width: 100%; }
+
+  /* Services */
+  .service-row { padding: 24px 0; gap: 10px 12px; }
+  .service-title { font-size: clamp(18px, 5vw, 24px); }
+  .service-desc { font-size: 14px; }
+
+  /* Proof marquee — slow down on mobile for legibility */
+  .marquee-track { animation-duration: 28s; }
+  .marquee-item { font-size: clamp(22px, 6vw, 32px); padding: 0 20px; }
+
+  /* Contact */
+  .contact-aside { padding: 24px 20px; }
+  .aside-link { font-size: 14px; word-break: break-all; }
+
+  /* Footer */
+  .footer { padding: 60px 0 32px; }
+  .footer-top { margin-bottom: 40px; }
+  .footer-bottom { margin-top: 40px; flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  /* Selected work header row — stack on very small screens */
+  #work .section-title + .resume-link { margin-top: 16px; }
 }
