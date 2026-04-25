@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 
-// Public domain key — scoped to this ChatKit workflow, safe server-side
-const CHATKIT_KEY = "domain_pk_69ed4d96e1608197943c289c2fcd21b20b4ba4759c1f6303";
-const WORKFLOW_ID = "wf_68df4b13b3588190a09d19288d4610ec0df388c3983f58d1";
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY!;
+const WORKFLOW_ID = "wf_69ed4ae7a0d481908690c28384305a1b0ba7496df3397489";
 
 export async function POST(request: Request) {
   try {
@@ -14,7 +13,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
         "OpenAI-Beta": "chatkit_beta=v1",
-        Authorization: `Bearer ${CHATKIT_KEY}`,
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         workflow: { id: WORKFLOW_ID },
