@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import N8nChatWidget from "@/components/N8nChatWidget";
+import ChatKitWidget from "@/components/ChatKitWidget";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,7 +52,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col" style={{ background: "var(--bg)", color: "var(--fg)" }}>
         {children}
-        <N8nChatWidget />
+        <ChatKitWidget />
       </body>
     </html>
   );
