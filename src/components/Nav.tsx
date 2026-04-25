@@ -25,10 +25,10 @@ export default function Nav() {
         zIndex: 50,
         padding: scrolled ? "14px 0" : "28px 0",
         transition: "padding 400ms cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 400ms",
-        backdropFilter: (scrolled || open) ? "saturate(140%) blur(18px)" : "blur(0)",
-        WebkitBackdropFilter: (scrolled || open) ? "saturate(140%) blur(18px)" : "blur(0)",
-        background: (scrolled || open) ? "rgba(10,10,11,0.94)" : "transparent",
-        borderBottom: (scrolled || open) ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+        backdropFilter: (scrolled || open) ? "saturate(160%) blur(20px)" : "blur(0)",
+        WebkitBackdropFilter: (scrolled || open) ? "saturate(160%) blur(20px)" : "blur(0)",
+        background: (scrolled || open) ? "rgba(242,241,238,0.90)" : "transparent",
+        borderBottom: (scrolled || open) ? "1px solid rgba(0,0,0,0.08)" : "1px solid transparent",
       }}
     >
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -86,7 +86,7 @@ export default function Nav() {
           transition: "max-height 400ms cubic-bezier(0.16, 1, 0.3, 1)",
           borderTop: open ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
           marginTop: open ? 12 : 0,
-          background: "rgba(10,10,11,0.98)",
+          background: "rgba(242,241,238,0.98)",
         }}
       >
         <div className="container" style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column", gap: 20 }}>

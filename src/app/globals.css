@@ -4,23 +4,23 @@
    DESIGN TOKENS
 ============================================================ */
 :root {
-  --bg: #0a0a0b;
-  --bg-deep: #050506;
-  --surface: #111113;
-  --surface-2: #17171a;
-  --raised: #1c1c1f;
-  --hairline: rgba(255, 255, 255, 0.06);
-  --hairline-strong: rgba(255, 255, 255, 0.12);
+  --bg: #F2F1EE;
+  --bg-deep: #E8E7E3;
+  --surface: #FFFFFF;
+  --surface-2: #F8F7F5;
+  --raised: #FFFFFF;
+  --hairline: rgba(0, 0, 0, 0.07);
+  --hairline-strong: rgba(0, 0, 0, 0.13);
 
-  --fg: #f5f5f7;
-  --fg-mid: #a8a8b0;
-  --fg-dim: #8a8a93;
-  --fg-dimmer: #55555c;
+  --fg: #0E0E12;
+  --fg-mid: #3C3C48;
+  --fg-dim: #68687A;
+  --fg-dimmer: #9C9CAC;
 
-  --accent: oklch(0.70 0.21 32);
-  --accent-strong: oklch(0.74 0.23 30);
-  --accent-glow: oklch(0.70 0.21 32 / 0.22);
-  --glow-secondary: rgba(100, 130, 230, 0.22);
+  --accent: oklch(0.60 0.22 32);
+  --accent-strong: oklch(0.64 0.24 30);
+  --accent-glow: oklch(0.60 0.22 32 / 0.18);
+  --glow-secondary: rgba(100, 130, 230, 0.20);
 
   --gutter: clamp(20px, 4vw, 48px);
   --max-w: 1280px;
@@ -54,7 +54,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body { min-height: 100vh; }
 img { max-width: 100%; display: block; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -62,8 +62,8 @@ a { color: inherit; }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #26262b; border-radius: 10px; border: 2px solid var(--bg); }
-::-webkit-scrollbar-thumb:hover { background: #35353b; }
+::-webkit-scrollbar-thumb { background: #C4C3BF; border-radius: 10px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: #B0AFA9; }
 
 ::selection { background: oklch(0.78 0.13 72 / 0.25); color: var(--fg); }
 
@@ -178,9 +178,9 @@ a { color: inherit; }
   border-color: var(--fg);
 }
 .btn--primary:hover {
-  background: #fff;
+  background: #1a1a22;
   transform: translateY(-1px);
-  box-shadow: 0 10px 30px -10px rgba(255,255,255,0.2);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.22);
 }
 .btn--primary:disabled { opacity: 0.7; cursor: default; }
 .btn--ghost {
@@ -624,7 +624,7 @@ a { color: inherit; }
 .portrait-vignette {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(10,10,11,0.6) 100%);
+  background: linear-gradient(180deg, transparent 40%, rgba(242,241,238,0.55) 100%);
   pointer-events: none;
 }
 .portrait-caption {
@@ -739,7 +739,7 @@ a { color: inherit; }
   padding: 32px;
   border: 1px solid var(--hairline);
   border-radius: 16px;
-  background: rgba(255,255,255,0.015);
+  background: var(--surface);
 }
 .aside-block { display: flex; flex-direction: column; gap: 10px; }
 .aside-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-dimmer); }
@@ -801,7 +801,7 @@ a { color: inherit; }
   line-height: 0.85;
   letter-spacing: -0.05em;
   font-weight: 600;
-  background: linear-gradient(180deg, var(--fg) 0%, #2a2a30 100%);
+  background: linear-gradient(180deg, var(--fg) 0%, rgba(14,14,18,0.10) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -832,6 +832,23 @@ a { color: inherit; }
   transition: color 240ms;
 }
 .footer-top-link:hover { color: var(--fg); }
+
+/* ============================================================
+   DARK-ON-DARK OVERRIDES (case visuals stay dark against light page)
+============================================================ */
+.case-visual .case-chip {
+  color: rgba(255,255,255,0.55);
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+}
+.case-visual .case-pill {
+  color: rgba(255,255,255,0.82);
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+
+/* Resume link hover: invert for light mode */
+.resume-link:hover { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 
 /* ============================================================
    MOBILE NAV

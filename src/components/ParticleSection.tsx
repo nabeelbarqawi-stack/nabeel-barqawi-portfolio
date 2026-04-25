@@ -30,7 +30,7 @@ export default function ParticleSection() {
           inset: 0,
           zIndex: 10,
           background:
-            "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, #0B0B0C 100%)",
+            "radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, #F2F1EE 100%)",
         }}
       />
 

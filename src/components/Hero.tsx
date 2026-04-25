@@ -23,45 +23,45 @@ export default function Hero() {
       id="top"
       className="hero-section"
     >
-      {/* Ambient glow — coral left */}
+      {/* Ambient glow — coral upper-left */}
       <div
         aria-hidden
         style={{
           position: "absolute",
-          top: "5%",
-          left: "-15%",
-          width: "75%",
-          height: "80%",
-          background: "radial-gradient(ellipse, rgba(255,100,65,0.28) 0%, rgba(255,140,80,0.10) 45%, transparent 70%)",
-          filter: "blur(72px)",
+          top: "-5%",
+          left: "-20%",
+          width: "80%",
+          height: "85%",
+          background: "radial-gradient(ellipse, rgba(255,95,60,0.42) 0%, rgba(255,140,80,0.18) 45%, transparent 70%)",
+          filter: "blur(80px)",
           pointerEvents: "none",
           transform: `translateY(${parallax * 0.3}px)`,
         }}
       />
-      {/* Ambient glow — periwinkle right */}
+      {/* Ambient glow — periwinkle lower-right */}
       <div
         aria-hidden
         style={{
           position: "absolute",
-          bottom: "-20%",
-          right: "-20%",
-          width: "70%",
-          height: "80%",
-          background: "radial-gradient(ellipse, rgba(100,130,235,0.30) 0%, rgba(80,105,210,0.12) 45%, transparent 70%)",
-          filter: "blur(90px)",
+          bottom: "-25%",
+          right: "-25%",
+          width: "75%",
+          height: "85%",
+          background: "radial-gradient(ellipse, rgba(95,125,235,0.40) 0%, rgba(75,100,210,0.15) 45%, transparent 70%)",
+          filter: "blur(100px)",
           pointerEvents: "none",
         }}
       />
-      {/* Subtle center bloom — peach bridge between the two */}
+      {/* Warm peach bloom — center bridge */}
       <div
         aria-hidden
         style={{
           position: "absolute",
-          top: "35%",
-          left: "30%",
-          width: "40%",
-          height: "40%",
-          background: "radial-gradient(ellipse, rgba(255,170,110,0.10) 0%, transparent 70%)",
+          top: "30%",
+          left: "25%",
+          width: "50%",
+          height: "50%",
+          background: "radial-gradient(ellipse, rgba(255,175,120,0.18) 0%, transparent 65%)",
           filter: "blur(60px)",
           pointerEvents: "none",
         }}
