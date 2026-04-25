@@ -53,109 +53,120 @@ export default function ChatKitWidget() {
 
   return (
     <>
-      {open && (
+      {/* Panel — always mounted so the session/iframe persists; shown via visibility */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: 88,
+          right: 24,
+          width: "min(400px, calc(100vw - 32px))",
+          height: "min(640px, calc(100dvh - 120px))",
+          borderRadius: 20,
+          overflow: "hidden",
+          boxShadow:
+            "0 32px 80px -16px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.07)",
+          border: "1px solid rgba(0,0,0,0.08)",
+          zIndex: 9998,
+          display: "flex",
+          flexDirection: "column",
+          visibility: open ? "visible" : "hidden",
+          opacity: open ? 1 : 0,
+          pointerEvents: open ? "all" : "none",
+          transform: open ? "translateY(0) scale(1)" : "translateY(8px) scale(0.98)",
+          transition: "opacity 200ms ease, transform 200ms ease, visibility 200ms ease",
+        }}
+      >
+        {/* Custom header */}
         <div
           style={{
-            position: "fixed",
-            bottom: 88,
-            right: 24,
-            width: "min(400px, calc(100vw - 32px))",
-            height: "min(640px, calc(100dvh - 120px))",
-            borderRadius: 20,
-            overflow: "hidden",
-            boxShadow:
-              "0 32px 80px -16px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.07)",
-            border: "1px solid rgba(0,0,0,0.08)",
-            zIndex: 9999,
+            background: "#1C1A19",
+            padding: "18px 20px 16px",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
             display: "flex",
-            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexShrink: 0,
           }}
         >
-          {/* Custom header */}
-          <div
-            style={{
-              background: "#1C1A19",
-              padding: "18px 20px 16px",
-              borderBottom: "1px solid rgba(255,255,255,0.06)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexShrink: 0,
-            }}
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: "#F5F3F0",
-                  letterSpacing: "-0.022em",
-                  margin: 0,
-                  lineHeight: 1.25,
-                }}
-              >
-                Nabeel AI
-              </p>
-              <p
-                style={{
-                  fontSize: 12,
-                  color: "rgba(245,243,240,0.46)",
-                  margin: "3px 0 0",
-                  letterSpacing: "0.01em",
-                  lineHeight: 1.4,
-                }}
-              >
-                Turning complex into clear.
-              </p>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <span
-                style={{
-                  width: 7,
-                  height: 7,
-                  borderRadius: "50%",
-                  background: "#4ade80",
-                  boxShadow: "0 0 0 2px rgba(74,222,128,0.28)",
-                  display: "block",
-                  flexShrink: 0,
-                }}
-              />
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close chat"
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "rgba(245,243,240,0.40)",
-                  cursor: "pointer",
-                  padding: "4px",
-                  display: "flex",
-                  alignItems: "center",
-                  lineHeight: 1,
-                  transition: "color 160ms ease",
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M12 4L4 12M4 4l8 8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
-            </div>
+          <div>
+            <p
+              style={{
+                fontSize: 16,
+                fontWeight: 600,
+                color: "#F5F3F0",
+                letterSpacing: "-0.022em",
+                margin: 0,
+                lineHeight: 1.25,
+              }}
+            >
+              Nabeel AI
+            </p>
+            <p
+              style={{
+                fontSize: 12,
+                color: "rgba(245,243,240,0.46)",
+                margin: "3px 0 0",
+                letterSpacing: "0.01em",
+                lineHeight: 1.4,
+              }}
+            >
+              Turning complex into clear.
+            </p>
           </div>
-
-          {/* ChatKit body */}
-          <div style={{ flex: 1, minHeight: 0, overflow: "hidden" }}>
-            <ChatKit
-              control={control}
-              style={{ width: "100%", height: "100%", display: "block" }}
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span
+              style={{
+                width: 7,
+                height: 7,
+                borderRadius: "50%",
+                background: "#4ade80",
+                boxShadow: "0 0 0 2px rgba(74,222,128,0.28)",
+                display: "block",
+                flexShrink: 0,
+              }}
             />
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close chat"
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "rgba(245,243,240,0.40)",
+                cursor: "pointer",
+                padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                lineHeight: 1,
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M12 4L4 12M4 4l8 8"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
           </div>
         </div>
-      )}
+
+        {/* ChatKit body — relative container gives the absolutely-positioned iframe
+            explicit pixel bounds so the web component can measure itself */}
+        <div style={{ position: "relative", flex: 1, minHeight: 0 }}>
+          <ChatKit
+            control={control}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: "block",
+            }}
+          />
+        </div>
+      </div>
 
       {/* FAB toggle */}
       <button
