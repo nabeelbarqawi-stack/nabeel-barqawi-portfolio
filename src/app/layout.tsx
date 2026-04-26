@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import ChatKitWidget from "@/components/ChatKitWidget";
 
@@ -53,6 +54,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col" style={{ background: "var(--bg)", color: "var(--fg)" }}>
         {children}
         <ChatKitWidget />
+        <Script
+          src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
