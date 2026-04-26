@@ -7,9 +7,7 @@ import Reveal from "./Reveal";
 const intents = ["Hire", "Coaching", "Advisory", "Other"];
 const socials: [string, string][] = [
   ["LinkedIn", "https://linkedin.com/in/nabeelbarqawi"],
-  ["X / Twitter", "https://x.com/nabeelbarqawi"],
-  ["Substack", "https://nabeelbarqawi.substack.com"],
-  ["GitHub", "https://github.com/nabeelbarqawi"],
+  ["GitHub", "https://github.com/nabeelbarqawi-stack"],
 ];
 
 export default function Contact() {

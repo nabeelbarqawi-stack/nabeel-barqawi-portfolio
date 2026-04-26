@@ -22,7 +22,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: blob: https:",
-      "connect-src 'self' https://api.openai.com wss://*.openai.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+      "connect-src 'self' https://api.openai.com wss://*.openai.com https://formspree.io https://vitals.vercel-insights.com https://va.vercel-scripts.com",
       "frame-src 'self' https://*.openai.com",
       "object-src 'none'",
       "base-uri 'self'",
