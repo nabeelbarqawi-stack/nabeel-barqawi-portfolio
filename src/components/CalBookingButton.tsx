@@ -3,7 +3,7 @@
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect, type ReactNode, type CSSProperties } from "react";
 
-const CAL_LINK = "nabeelbarqawi/30min";
+const CAL_LINK = "nabeel-barqawi-fm0wzq";
 const CAL_NS = "booking";
 
 // Module-level promise so the embed script is only loaded once
