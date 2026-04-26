@@ -4,7 +4,12 @@ import { useState } from "react";
 import Reveal from "./Reveal";
 
 const intents = ["Hire", "Coaching", "Advisory", "Other"];
-const socials = ["LinkedIn", "X / Twitter", "Substack", "GitHub"];
+const socials: [string, string][] = [
+  ["LinkedIn", "https://linkedin.com/in/nabeelbarqawi"],
+  ["X / Twitter", "https://x.com/nabeelbarqawi"],
+  ["Substack", "https://nabeelbarqawi.substack.com"],
+  ["GitHub", "https://github.com/nabeelbarqawi"],
+];
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -67,9 +72,11 @@ export default function Contact() {
           <Reveal delay={320}>
             <form onSubmit={submit} className="contact-form">
               <div className="field">
-                <label className={`field-label ${focused === "name" || form.name ? "active" : ""}`}>Name</label>
+                <label htmlFor="contact-name" className={`field-label ${focused === "name" || form.name ? "active" : ""}`}>Name</label>
                 <input
+                  id="contact-name"
                   type="text"
+                  autoComplete="name"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   onFocus={() => setFocused("name")}
@@ -79,9 +86,11 @@ export default function Contact() {
               </div>
 
               <div className="field">
-                <label className={`field-label ${focused === "email" || form.email ? "active" : ""}`}>Email</label>
+                <label htmlFor="contact-email" className={`field-label ${focused === "email" || form.email ? "active" : ""}`}>Email</label>
                 <input
+                  id="contact-email"
                   type="email"
+                  autoComplete="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   onFocus={() => setFocused("email")}
@@ -107,10 +116,11 @@ export default function Contact() {
               </div>
 
               <div className="field">
-                <label className={`field-label ${focused === "message" || form.message ? "active" : ""}`}>
+                <label htmlFor="contact-message" className={`field-label ${focused === "message" || form.message ? "active" : ""}`}>
                   The shape of the problem
                 </label>
                 <textarea
+                  id="contact-message"
                   rows={4}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -158,10 +168,10 @@ export default function Contact() {
               <div className="aside-block">
                 <div className="aside-label">Elsewhere</div>
                 <div className="aside-socials">
-                  {socials.map((s) => (
-                    <a key={s} href="#" className="aside-social">
-                      <span>{s}</span>
-                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  {socials.map(([label, href]) => (
+                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="aside-social" aria-label={`${label} (opens in new tab)`}>
+                      <span>{label}</span>
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false">
                         <path d="M3 7 L7 3 M4 3 H7 V6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </a>

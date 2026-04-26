@@ -139,7 +139,7 @@ export default function ChatKitWidget() {
                 lineHeight: 1,
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
                 <path
                   d="M12 4L4 12M4 4l8 8"
                   stroke="currentColor"
@@ -193,7 +193,7 @@ export default function ChatKitWidget() {
         }}
       >
         {open ? (
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
             <path
               d="M15 5L5 15M5 5l10 10"
               stroke="currentColor"
@@ -202,7 +202,7 @@ export default function ChatKitWidget() {
             />
           </svg>
         ) : (
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
             <path
               d="M4 8C4 6.9 4.9 6 6 6h10c1.1 0 2 .9 2 2v6.5c0 1.1-.9 2-2 2H12.5l-3 2.5V16.5H6c-1.1 0-2-.9-2-2V8z"
               fill="currentColor"

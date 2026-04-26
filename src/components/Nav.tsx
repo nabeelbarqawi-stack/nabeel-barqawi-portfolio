@@ -68,17 +68,21 @@ export default function Nav() {
         <button
           className="mobile-toggle"
           onClick={() => setOpen((o) => !o)}
-          aria-label="Menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           style={{ display: "none", background: "transparent", border: "none", color: "var(--fg)", cursor: "pointer", padding: 8 }}
         >
-          <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+          <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true" focusable="false">
             <path d={open ? "M2 2 L20 12 M2 12 L20 2" : "M0 1 H22 M0 13 H22"} stroke="currentColor" strokeWidth="1.5" />
           </svg>
         </button>
       </div>
 
       <div
+        id="mobile-menu"
         className="mobile-menu"
+        aria-hidden={!open}
         style={{
           display: "none",
           maxHeight: open ? 360 : 0,
