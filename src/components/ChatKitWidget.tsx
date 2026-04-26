@@ -99,7 +99,7 @@ export default function ChatKitWidget() {
                 lineHeight: 1.25,
               }}
             >
-              Nabeel AI
+              Beelo
             </p>
             <p
               style={{
@@ -110,7 +110,7 @@ export default function ChatKitWidget() {
                 lineHeight: 1.4,
               }}
             >
-              Turning complex into clear.
+              Nabeel's personal agent.
             </p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -171,7 +171,7 @@ export default function ChatKitWidget() {
       {/* FAB toggle */}
       <button
         onClick={() => setOpen((o) => !o)}
-        aria-label={open ? "Close chat" : "Open chat with Nabeel AI"}
+        aria-label={open ? "Close chat" : "Open chat with Beelo"}
         style={{
           position: "fixed",
           bottom: 24,
