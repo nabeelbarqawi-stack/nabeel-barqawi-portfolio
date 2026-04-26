@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import Reveal from "./Reveal";
 
 const intents = ["Hire", "Coaching", "Advisory", "Other"];
@@ -12,18 +13,12 @@ const socials: [string, string][] = [
 ];
 
 export default function Contact() {
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", intent: "Hire", message: "" });
+  const [state, handleSubmit] = useForm("xqewjded");
+  const [intent, setIntent] = useState("Hire");
   const [focused, setFocused] = useState<string | null>(null);
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email) return;
-    const body = encodeURIComponent(`Intent: ${form.intent}\n\n${form.message}`);
-    window.open(`mailto:nabeelbarqawi@gmail.com?subject=${encodeURIComponent(`Portfolio inquiry — ${form.intent}`)}&body=${body}`);
-    setSent(true);
-    setTimeout(() => setSent(false), 3200);
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   return (
     <section id="contact" className="section contact-section" style={{ borderTop: "1px solid var(--hairline)" }}>
@@ -70,84 +65,114 @@ export default function Contact() {
         <div className="contact-grid">
           {/* Form */}
           <Reveal delay={320}>
-            <form onSubmit={submit} className="contact-form">
-              <div className="field">
-                <label htmlFor="contact-name" className={`field-label ${focused === "name" || form.name ? "active" : ""}`}>Name</label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  autoComplete="name"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  onFocus={() => setFocused("name")}
-                  onBlur={() => setFocused(null)}
-                  className="field-input"
-                />
+            {state.succeeded ? (
+              <div
+                className="contact-form"
+                style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center", gap: 16, minHeight: 320 }}
+              >
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <circle cx="16" cy="16" r="15" stroke="var(--accent)" strokeWidth="1.5" />
+                  <path d="M10 16.5 L14 20.5 L22 12" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <p style={{ fontSize: "clamp(20px, 2.5vw, 28px)", fontWeight: 600, color: "var(--fg)", lineHeight: 1.3 }}>
+                  Message sent — talk soon.
+                </p>
+                <p style={{ fontSize: 15, color: "var(--fg-dim)", lineHeight: 1.6 }}>
+                  I&apos;ll get back to you within 48 hours.
+                </p>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="contact-form" noValidate>
+                {/* Hidden field so Formspree receives the selected intent */}
+                <input type="hidden" name="intent" value={intent} />
 
-              <div className="field">
-                <label htmlFor="contact-email" className={`field-label ${focused === "email" || form.email ? "active" : ""}`}>Email</label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  autoComplete="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  onFocus={() => setFocused("email")}
-                  onBlur={() => setFocused(null)}
-                  className="field-input"
-                />
-              </div>
-
-              <div className="field">
-                <div className="field-label-static">I&apos;m interested in</div>
-                <div className="intent-group">
-                  {intents.map((intent) => (
-                    <button
-                      type="button"
-                      key={intent}
-                      onClick={() => setForm({ ...form, intent })}
-                      className={`intent-chip ${form.intent === intent ? "active" : ""}`}
-                    >
-                      {intent}
-                    </button>
-                  ))}
+                <div className="field">
+                  <label htmlFor="contact-name" className={`field-label ${focused === "name" || name ? "active" : ""}`}>Name</label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    onFocus={() => setFocused("name")}
+                    onBlur={() => setFocused(null)}
+                    className="field-input"
+                    aria-invalid={!!state.errors?.getFormErrors().length}
+                  />
+                  <ValidationError field="name" prefix="Name" errors={state.errors} className="field-error" />
                 </div>
-              </div>
 
-              <div className="field">
-                <label htmlFor="contact-message" className={`field-label ${focused === "message" || form.message ? "active" : ""}`}>
-                  The shape of the problem
-                </label>
-                <textarea
-                  id="contact-message"
-                  rows={4}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  onFocus={() => setFocused("message")}
-                  onBlur={() => setFocused(null)}
-                  className="field-input"
-                />
-              </div>
+                <div className="field">
+                  <label htmlFor="contact-email" className={`field-label ${focused === "email" || email ? "active" : ""}`}>Email</label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onFocus={() => setFocused("email")}
+                    onBlur={() => setFocused(null)}
+                    className="field-input"
+                    aria-invalid={!!state.errors?.getFieldErrors("email").length}
+                  />
+                  <ValidationError field="email" prefix="Email" errors={state.errors} className="field-error" />
+                </div>
 
-              <button type="submit" className="btn btn--primary btn--full" disabled={sent}>
-                {sent ? (
-                  <>
-                    Sent — talk soon
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginLeft: 4 }}>
-                      <path d="M3 7 L6 10 L11 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    Send message
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginLeft: 4 }}>
-                      <path d="M3 7 H11 M7 3 L11 7 L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </>
-                )}
-              </button>
-            </form>
+                <div className="field">
+                  <div className="field-label-static">I&apos;m interested in</div>
+                  <div className="intent-group" role="group" aria-label="Engagement type">
+                    {intents.map((item) => (
+                      <button
+                        type="button"
+                        key={item}
+                        onClick={() => setIntent(item)}
+                        className={`intent-chip ${intent === item ? "active" : ""}`}
+                        aria-pressed={intent === item}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="field">
+                  <label htmlFor="contact-message" className={`field-label ${focused === "message" || message ? "active" : ""}`}>
+                    The shape of the problem
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows={4}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onFocus={() => setFocused("message")}
+                    onBlur={() => setFocused(null)}
+                    className="field-input"
+                  />
+                  <ValidationError field="message" prefix="Message" errors={state.errors} className="field-error" />
+                </div>
+
+                {/* Form-level error (e.g. network failure) */}
+                <ValidationError errors={state.errors} className="field-error" />
+
+                <button type="submit" className="btn btn--primary btn--full" disabled={state.submitting}>
+                  {state.submitting ? (
+                    <>Sending…</>
+                  ) : (
+                    <>
+                      Send message
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style={{ marginLeft: 4 }}>
+                        <path d="M3 7 H11 M7 3 L11 7 L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
           </Reveal>
 
           {/* Aside */}
