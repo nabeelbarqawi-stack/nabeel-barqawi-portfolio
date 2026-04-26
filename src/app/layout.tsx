@@ -3,6 +3,7 @@ import { Inter, Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/
 import Script from "next/script";
 import "./globals.css";
 import ChatKitWidget from "@/components/ChatKitWidget";
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,6 +55,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col" style={{ background: "var(--bg)", color: "var(--fg)" }}>
         {children}
         <ChatKitWidget />
+        <Analytics />
         <Script
           src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js"
           strategy="afterInteractive"
