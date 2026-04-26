@@ -18,7 +18,7 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Next.js App Router requires 'unsafe-inline' for its inline bootstrap scripts
-      "script-src 'self' 'unsafe-inline' https://cdn.platform.openai.com https://va.vercel-scripts.com https://cal.com",
+      "script-src 'self' 'unsafe-inline' https://cdn.platform.openai.com https://va.vercel-scripts.com https://cal.com https://app.cal.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: blob: https:",
