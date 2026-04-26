@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useScrollY, easeOutCubic } from "@/hooks/useScrollUtils";
 import Reveal from "./Reveal";
+import CalBookingButton from "./CalBookingButton";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -130,7 +131,7 @@ export default function Hero() {
                 <path d="M3 7 H11 M7 3 L11 7 L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-            <a href="#services" className="btn btn--ghost">Book 1:1 coaching</a>
+            <CalBookingButton className="btn btn--ghost">Book 1:1 coaching</CalBookingButton>
             <a href="#contact" className="btn btn--text">
               Get in touch
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 4, opacity: 0.8 }}>

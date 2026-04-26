@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import Reveal from "./Reveal";
+import CalBookingButton from "./CalBookingButton";
 
 const intents = ["Hire", "Coaching", "Advisory", "Other"];
 const socials: [string, string][] = [
@@ -184,9 +185,9 @@ export default function Contact() {
               </div>
               <div className="aside-block">
                 <div className="aside-label">Book time</div>
-                <a href="https://cal.com/nabeelbarqawi" target="_blank" rel="noopener noreferrer" className="aside-link">
-                  cal.com/nabeelbarqawi — 30 min
-                </a>
+                <CalBookingButton className="aside-link" style={{ background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left", font: "inherit" }}>
+                  Book time with me — 30 min
+                </CalBookingButton>
               </div>
               <div className="aside-block">
                 <div className="aside-label">Elsewhere</div>

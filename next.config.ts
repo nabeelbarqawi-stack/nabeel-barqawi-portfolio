@@ -18,12 +18,12 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Next.js App Router requires 'unsafe-inline' for its inline bootstrap scripts
-      "script-src 'self' 'unsafe-inline' https://cdn.platform.openai.com https://va.vercel-scripts.com",
+      "script-src 'self' 'unsafe-inline' https://cdn.platform.openai.com https://va.vercel-scripts.com https://cal.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: blob: https:",
-      "connect-src 'self' https://api.openai.com wss://*.openai.com https://formspree.io https://vitals.vercel-insights.com https://va.vercel-scripts.com",
-      "frame-src 'self' https://*.openai.com",
+      "connect-src 'self' https://api.openai.com wss://*.openai.com https://formspree.io https://cal.com https://app.cal.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+      "frame-src 'self' https://*.openai.com https://cal.com https://app.cal.com",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
