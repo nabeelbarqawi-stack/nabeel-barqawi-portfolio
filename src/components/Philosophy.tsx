@@ -21,6 +21,7 @@ export default function Philosophy() {
       style={{ height: "110vh", position: "relative", borderTop: "1px solid var(--hairline)" }}
     >
       <div
+        className="philosophy-sticky"
         style={{
           position: "sticky",
           top: 0,
