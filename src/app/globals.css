@@ -901,7 +901,7 @@ a { color: inherit; }
   .philosophy-sticky {
     position: relative !important;
     height: auto !important;
-    padding: 40px 0;
+    padding: 20px 0;
     align-items: flex-start !important;
   }
   .philosophy-eyebrow { display: none !important; }
