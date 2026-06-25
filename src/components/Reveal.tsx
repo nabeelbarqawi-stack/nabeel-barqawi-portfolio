@@ -21,7 +21,7 @@ export default function Reveal({ children, delay = 0, y = 24, className = "", st
         ...style,
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : `translateY(${y}px)`,
-        transition: `opacity 900ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        transition: `opacity 500ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform 500ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
         willChange: "opacity, transform",
       }}
     >
