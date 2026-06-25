@@ -22,7 +22,7 @@ export function useScrollY(): number {
 }
 
 export function useInViewOnce(
-  opts: IntersectionObserverInit = { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+  opts: IntersectionObserverInit = { threshold: 0.08, rootMargin: "0px 0px 0px 0px" }
 ): [RefObject<HTMLDivElement>, boolean] {
   const ref = useRef<HTMLDivElement>(null!);
   const [inView, setInView] = useState(false);
