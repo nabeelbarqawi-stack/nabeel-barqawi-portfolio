@@ -34,7 +34,7 @@ export default function Philosophy() {
         <div className="container" style={{ width: "100%" }}>
           {/* Eyebrow */}
           <div
-            className="eyebrow"
+            className="eyebrow philosophy-eyebrow"
             style={{
               opacity: mapRange(p, 0, 0.06, 0, 1),
               transform: `translateY(${mapRange(p, 0, 0.06, 12, 0)}px)`,
