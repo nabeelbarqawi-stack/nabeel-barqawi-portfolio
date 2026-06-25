@@ -897,6 +897,13 @@ a { color: inherit; }
 
   /* Philosophy */
   .philosophy-prose { font-size: clamp(24px, 6.5vw, 36px); line-height: 1.22; }
+  .philosophy-pin { height: auto !important; }
+  .philosophy-sticky {
+    position: relative !important;
+    height: auto !important;
+    padding: clamp(64px, 16vw, 100px) 0;
+    align-items: flex-start !important;
+  }
 
   /* Approach */
   .approach-grid { margin-bottom: 60px; }
