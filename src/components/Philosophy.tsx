@@ -8,17 +8,17 @@ const SENTENCE =
 
 export default function Philosophy() {
   const pinRef = useRef<HTMLElement>(null);
-  const p = useScrollProgress(pinRef as React.RefObject<HTMLElement | null>, "pin");
+  const p = useScrollProgress(pinRef as React.RefObject<HTMLElement | null>, "enter");
 
   const words = SENTENCE.split(" ");
-  const wordStart = 0.08;
-  const wordEnd = 0.92;
+  const wordStart = 0.05;
+  const wordEnd = 0.85;
 
   return (
     <section
       ref={pinRef}
       className="philosophy-pin"
-      style={{ height: "110vh", position: "relative", borderTop: "1px solid var(--hairline)" }}
+      style={{ height: "180vh", position: "relative", borderTop: "1px solid var(--hairline)" }}
     >
       <div
         className="philosophy-sticky"
@@ -34,7 +34,7 @@ export default function Philosophy() {
         <div className="container" style={{ width: "100%" }}>
           {/* Eyebrow */}
           <div
-            className="eyebrow"
+            className="eyebrow philosophy-eyebrow"
             style={{
               opacity: mapRange(p, 0, 0.06, 0, 1),
               transform: `translateY(${mapRange(p, 0, 0.06, 12, 0)}px)`,
@@ -49,7 +49,7 @@ export default function Philosophy() {
             {words.map((w, i) => {
               const each = (wordEnd - wordStart) / words.length;
               const wp = mapRange(p, wordStart + i * each * 0.5, wordStart + i * each * 0.5 + each * 2, 0, 1);
-              const op = 0.18 + wp * 0.82;
+              const op = 0.25 + wp * 0.75;
               return (
                 <span
                   key={i}
