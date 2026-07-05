@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 const securityHeaders = [
   { key: "X-DNS-Prefetch-Control", value: "on" },
   {
@@ -17,8 +19,10 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Next.js App Router requires 'unsafe-inline' for its inline bootstrap scripts
-      "script-src 'self' 'unsafe-inline' https://cdn.platform.openai.com https://va.vercel-scripts.com https://cal.com https://app.cal.com",
+      // Next.js App Router requires 'unsafe-inline' for its inline bootstrap scripts.
+      // React dev mode (Fast Refresh, error overlay) additionally needs 'unsafe-eval',
+      // which is added only in development so production keeps the stricter policy.
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://cdn.platform.openai.com https://va.vercel-scripts.com https://cal.com https://app.cal.com`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' data: https://fonts.gstatic.com",
       "img-src 'self' data: blob: https:",
