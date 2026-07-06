@@ -15,7 +15,7 @@ export default function About() {
       <div className="container">
         <Reveal>
           <div className="eyebrow">
-            <span className="eyebrow-dot" /> 06 — About
+            <span className="eyebrow-dot" /> 07 — About
           </div>
         </Reveal>
 

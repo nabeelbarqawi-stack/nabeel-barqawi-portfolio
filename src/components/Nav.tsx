@@ -7,6 +7,7 @@ const links: [string, string][] = [
   ["Work", "#work"],
   ["Approach", "#approach"],
   ["Services", "#services"],
+  ["Programs", "#programs"],
   ["About", "#about"],
 ];
 

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import Reveal from "./Reveal";
 import CalBookingButton from "./CalBookingButton";
 
-const intents = ["Hire", "Coaching", "Advisory", "Other"];
+const intents = ["Hire", "Coaching", "Workshop", "Advisory", "Other"];
 const socials: [string, string][] = [
   ["LinkedIn", "https://linkedin.com/in/nabeelbarqawi"],
   ["GitHub", "https://github.com/nabeelbarqawi-stack"],
@@ -18,6 +18,14 @@ export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("intent");
+    if (requested && intents.includes(requested)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing from a browser-only URL param unavailable during SSR, not derivable render state
+      setIntent(requested);
+    }
+  }, []);
 
   return (
     <section id="contact" className="section contact-section" style={{ borderTop: "1px solid var(--hairline)" }}>
@@ -41,7 +49,7 @@ export default function Contact() {
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
         <Reveal>
           <div className="eyebrow">
-            <span className="eyebrow-dot" /> 07 — Let&apos;s talk
+            <span className="eyebrow-dot" /> 08 — Let&apos;s talk
           </div>
         </Reveal>
 

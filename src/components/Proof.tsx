@@ -17,7 +17,7 @@ export default function Proof() {
       <div className="container">
         <Reveal>
           <div className="eyebrow" style={{ marginBottom: 40 }}>
-            <span className="eyebrow-dot" /> 05 — In their words
+            <span className="eyebrow-dot" /> 06 — In their words
           </div>
         </Reveal>
       </div>

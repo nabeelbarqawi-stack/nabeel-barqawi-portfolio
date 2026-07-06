@@ -5,10 +5,13 @@ import ParticleSectionLoader from "@/components/ParticleSectionLoader";
 import Approach from "@/components/Approach";
 import SelectedWork from "@/components/SelectedWork";
 import Services from "@/components/Services";
+import Programs from "@/components/Programs";
 import Proof from "@/components/Proof";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+
+export const revalidate = 60;
 
 export default function Home() {
   return (
@@ -21,6 +24,7 @@ export default function Home() {
         <Approach />
         <SelectedWork />
         <Services />
+        <Programs />
         <Proof />
         <About />
         <Contact />
