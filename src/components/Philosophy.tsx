@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useScrollProgress, mapRange } from "@/hooks/useScrollUtils";
 
 const SENTENCE =
-  "Pluralist by nature. Contrarian in training. Curious enough to ship what everyone said couldn't ship. Comfortable not having done it before. Building anyway.";
+  "Pluralist by nature. Contrarian in training. Curious enough to explore anyway. Focused on first principles, not defaults. Building things that solve real human problems.";
 
 export default function Philosophy() {
   const pinRef = useRef<HTMLElement>(null);
@@ -18,7 +18,7 @@ export default function Philosophy() {
     <section
       ref={pinRef}
       className="philosophy-pin"
-      style={{ height: "140vh", position: "relative", borderTop: "1px solid var(--hairline)" }}
+      style={{ height: "180vh", position: "relative", borderTop: "1px solid var(--hairline)" }}
     >
       <div
         className="philosophy-sticky"
@@ -41,7 +41,7 @@ export default function Philosophy() {
               marginBottom: 56,
             }}
           >
-            <span className="eyebrow-dot" /> Philosophy
+            <span className="eyebrow-dot" /> 01 — Philosophy
           </div>
 
           {/* Word-by-word reveal */}

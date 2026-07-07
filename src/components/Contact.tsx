@@ -49,7 +49,7 @@ export default function Contact() {
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
         <Reveal>
           <div className="eyebrow">
-            <span className="eyebrow-dot" /> Let&apos;s talk
+            <span className="eyebrow-dot" /> 08 — Let&apos;s talk
           </div>
         </Reveal>
 

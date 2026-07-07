@@ -15,7 +15,7 @@ export default function About() {
       <div className="container">
         <Reveal>
           <div className="eyebrow">
-            <span className="eyebrow-dot" /> About
+            <span className="eyebrow-dot" /> 07 — About
           </div>
         </Reveal>
 
@@ -52,16 +52,16 @@ export default function About() {
             <Reveal delay={300}>
               <p className="about-para">
                 I didn&apos;t follow a straight line to product. That&apos;s the point. An Arab American background
-                taught me to hold multiple perspectives at once — to notice the assumption everyone else in the room
-                is treating as fact.
+                taught me to hold multiple perspectives at once — to be comfortable where definitions are fuzzy and
+                assumptions are unstable.
               </p>
             </Reveal>
 
             <Reveal delay={400}>
               <p className="about-para">
-                That instinct turned out to be the actual job. In AI especially, the hardest problems aren&apos;t the
-                models — they&apos;re the unclear goals, the unstated constraints, the behavior nobody wrote down.
-                That&apos;s the part I&apos;m good at.
+                That comfort with ambiguity is now a superpower. In AI especially, the hardest problems aren&apos;t
+                the models — they&apos;re the unclear goals, the unstated constraints, the human behavior you can&apos;t
+                specify upfront. I bring clarity to that.
               </p>
             </Reveal>
 

@@ -237,7 +237,7 @@ export default function SelectedWork() {
       <div className="container">
         <Reveal>
           <div className="eyebrow">
-            <span className="eyebrow-dot" /> Selected work
+            <span className="eyebrow-dot" /> 03 — Selected work
           </div>
         </Reveal>
 

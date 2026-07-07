@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useScrollY, easeOutCubic } from "@/hooks/useScrollUtils";
 import Reveal from "./Reveal";
 import CalBookingButton from "./CalBookingButton";
-import Link from "next/link";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -103,8 +102,8 @@ export default function Hero() {
         {/* Headline */}
         <Reveal delay={200}>
           <h1 className="hero-headline">
-            Nobody knew how<br />
-            to build this. I <em className="serif-accent">shipped</em>
+            Making complex<br />
+            systems <em className="serif-accent">simple</em>
             <span style={{ color: "var(--accent)" }}>.</span>
           </h1>
         </Reveal>
@@ -112,14 +111,14 @@ export default function Hero() {
         {/* Subline */}
         <Reveal delay={420} y={14}>
           <p className="hero-subline">
-            AI agents at Disney and CarMax, talking to millions of people a month.
+            AI-powered. Human-centered. Product-driven.
           </p>
         </Reveal>
 
         {/* Support */}
         <Reveal delay={600} y={12}>
           <p className="hero-support">
-            Now I coach people making the same leap — into product, into AI, into their next role.
+            I build products and experiences used by millions.
           </p>
         </Reveal>
 
@@ -132,10 +131,13 @@ export default function Hero() {
                 <path d="M3 7 H11 M7 3 L11 7 L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-            <Link href="/programs" className="btn btn--ghost">
-              Explore programs
-            </Link>
-            <CalBookingButton className="btn btn--text">Book an intro call</CalBookingButton>
+            <CalBookingButton className="btn btn--ghost">Book 1:1 coaching</CalBookingButton>
+            <a href="#contact" className="btn btn--text">
+              Get in touch
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 4, opacity: 0.8 }}>
+                <path d="M3 6 H9 M6 3 L9 6 L6 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </div>
         </Reveal>
 
