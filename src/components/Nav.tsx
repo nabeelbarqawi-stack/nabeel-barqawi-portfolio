@@ -2,23 +2,22 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useScrollY } from "@/hooks/useScrollUtils";
 
-// Absolute (/#section) rather than bare (#section) so these still work
-// when rendered on a non-homepage route like /programs/[slug] — a bare
-// hash only scrolls if the target id exists on the current page.
 const links: [string, string][] = [
-  ["Work", "/#work"],
-  ["Approach", "/#approach"],
-  ["Services", "/#services"],
-  ["Programs", "/#programs"],
-  ["About", "/#about"],
+  ["Work", "/work"],
+  ["Approach", "/approach"],
+  ["Services", "/services"],
+  ["Programs", "/programs"],
+  ["About", "/about"],
 ];
 
 export default function Nav() {
   const y = useScrollY();
   const scrolled = y > 40;
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header
@@ -54,18 +53,28 @@ export default function Nav() {
         </Link>
 
         <nav className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 36 }}>
-          {links.map(([label, href]) => (
-            <Link
-              key={href}
-              href={href}
-              style={{ fontSize: 13, color: "var(--fg-dim)", textDecoration: "none", letterSpacing: "-0.005em", transition: "color 200ms" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--fg)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--fg-dim)")}
-            >
-              {label}
-            </Link>
-          ))}
-          <Link href="/#contact" className="btn btn--sm btn--primary">
+          {links.map(([label, href]) => {
+            const active = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                style={{
+                  fontSize: 13,
+                  color: active ? "var(--fg)" : "var(--fg-dim)",
+                  fontWeight: active ? 600 : 400,
+                  textDecoration: "none",
+                  letterSpacing: "-0.005em",
+                  transition: "color 200ms",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--fg)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = active ? "var(--fg)" : "var(--fg-dim)")}
+              >
+                {label}
+              </Link>
+            );
+          })}
+          <Link href="/contact" className="btn btn--sm btn--primary">
             Get in touch
           </Link>
         </nav>
@@ -100,11 +109,16 @@ export default function Nav() {
       >
         <div className="container" style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column", gap: 20 }}>
           {links.map(([label, href]) => (
-            <Link key={href} href={href} onClick={() => setOpen(false)} style={{ fontSize: 18, color: "var(--fg)", textDecoration: "none" }}>
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setOpen(false)}
+              style={{ fontSize: 18, color: pathname === href ? "var(--accent)" : "var(--fg)", textDecoration: "none" }}
+            >
               {label}
             </Link>
           ))}
-          <Link href="/#contact" onClick={() => setOpen(false)} className="btn btn--primary" style={{ marginTop: 8 }}>
+          <Link href="/contact" onClick={() => setOpen(false)} className="btn btn--primary" style={{ marginTop: 8 }}>
             Get in touch
           </Link>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Reveal from "./Reveal";
 
 const items = [
@@ -40,12 +41,12 @@ export default function Services() {
                 <div className="service-index">0{i + 1}</div>
                 <div className="service-title">{item.t}</div>
                 <div className="service-desc">{item.d}</div>
-                <a href="#contact" className="service-cta" id={item.t === "Career Coaching" ? "coaching" : undefined}>
+                <Link href="/contact" className="service-cta" id={item.t === "Career Coaching" ? "coaching" : undefined}>
                   <span>{item.cta}</span>
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M3 6 H9 M6 3 L9 6 L6 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </a>
+                </Link>
               </div>
             </Reveal>
           ))}

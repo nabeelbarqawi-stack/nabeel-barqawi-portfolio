@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { useScrollY, easeOutCubic } from "@/hooks/useScrollUtils";
 import Reveal from "./Reveal";
 import CalBookingButton from "./CalBookingButton";
@@ -125,19 +126,19 @@ export default function Hero() {
         {/* CTAs */}
         <Reveal delay={780} y={14}>
           <div className="hero-ctas">
-            <a href="#contact" className="btn btn--primary">
+            <Link href="/contact" className="btn btn--primary">
               Hire me for your team
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginLeft: 2 }}>
                 <path d="M3 7 H11 M7 3 L11 7 L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
+            </Link>
             <CalBookingButton className="btn btn--ghost">Book 1:1 coaching</CalBookingButton>
-            <a href="#contact" className="btn btn--text">
+            <Link href="/contact" className="btn btn--text">
               Get in touch
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 4, opacity: 0.8 }}>
                 <path d="M3 6 H9 M6 3 L9 6 L6 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
+            </Link>
           </div>
         </Reveal>
 

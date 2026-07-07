@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 export default function Footer() {
   return (
     <footer className="footer">
@@ -28,12 +26,16 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} — Crafted with intent.</span>
           <span>Brooklyn · Remote-first</span>
-          <Link href="/#top" className="footer-top-link">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="footer-top-link"
+            style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }}
+          >
             <span>Back to top</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path d="M6 9 V3 M3 6 L6 3 L9 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </Link>
+          </button>
         </div>
       </div>
     </footer>
