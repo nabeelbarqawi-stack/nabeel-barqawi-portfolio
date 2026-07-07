@@ -3,9 +3,9 @@
 import Reveal from "./Reveal";
 
 const pillars = [
-  { n: "01", t: "Clarity over noise", d: "I'd rather spend the first session asking questions than have us build the wrong thing fast." },
-  { n: "02", t: "Human + technical", d: "I've built the model and sat with the person who has to use it — both sides of the same problem." },
-  { n: "03", t: "Execution with intent", d: "I'd rather ship something real this week than polish a plan no one acts on." },
+  { n: "01", t: "Clarity over noise", d: "I'd rather ask five hard questions upfront than build the wrong thing fast." },
+  { n: "02", t: "Human + technical", d: "I've shipped the model and sat with the person who has to use it. Most people only do one." },
+  { n: "03", t: "Execution with intent", d: "Shipped beats perfect. I optimize for what's live, not what's in the deck." },
   { n: "04", t: "Collaborative by design", d: "The best answer is rarely mine alone — I build it with the people who have to live with it." },
 ];
 

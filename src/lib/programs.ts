@@ -52,7 +52,7 @@ export const PROGRAMS: Record<ProgramSlug, Program> = {
     ],
     priceCents: 60000, // $600 placeholder
     currency: "usd",
-    ctaLabel: "Reserve your spot",
+    ctaLabel: "Apply now",
     capacityTracked: true,
   },
   "corporate-workshop": {

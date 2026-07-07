@@ -64,7 +64,7 @@ export default function Contact() {
         </Reveal>
 
         <Reveal delay={240}>
-          <p style={{ fontSize: "clamp(18px, 2vw, 22px)", lineHeight: 1.5, color: "var(--fg-dim)", maxWidth: 620, marginBottom: 48, textWrap: "balance" } as React.CSSProperties}>
+          <p style={{ fontSize: "clamp(18px, 2vw, 22px)", lineHeight: 1.5, color: "var(--fg-dim)", maxWidth: 620, marginBottom: 80, textWrap: "balance" } as React.CSSProperties}>
             Full-time, consulting, advisory, or fractional. Tell me the shape of the problem — I&apos;ll respond within 48 hours.
           </p>
         </Reveal>

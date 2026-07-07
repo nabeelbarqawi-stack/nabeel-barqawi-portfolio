@@ -103,8 +103,8 @@ export default function Hero() {
         {/* Headline */}
         <Reveal delay={200}>
           <h1 className="hero-headline">
-            Nobody&apos;s built this<br />
-            before. Let&apos;s figure it <em className="serif-accent">out</em>
+            Nobody knew how<br />
+            to build this. I <em className="serif-accent">shipped</em>
             <span style={{ color: "var(--accent)" }}>.</span>
           </h1>
         </Reveal>
@@ -112,14 +112,14 @@ export default function Hero() {
         {/* Subline */}
         <Reveal delay={420} y={14}>
           <p className="hero-subline">
-            I built the AI agents at Disney and CarMax that now reach millions of people a month.
+            AI agents at Disney and CarMax, talking to millions of people a month.
           </p>
         </Reveal>
 
         {/* Support */}
         <Reveal delay={600} y={12}>
           <p className="hero-support">
-            Now I help people make that same leap — into product, into AI, into their next role.
+            Now I coach people making the same leap — into product, into AI, into their next role.
           </p>
         </Reveal>
 

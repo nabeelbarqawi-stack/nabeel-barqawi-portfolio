@@ -57,7 +57,7 @@
 
   --hero-scale: 1;
   --section-scale: 1;
-  --padding-scale: 0.62;
+  --padding-scale: 0.8;
   --gap-scale: 1;
 }
 
@@ -302,8 +302,8 @@ a { color: inherit; }
   grid-template-columns: 1fr 1fr;
   gap: clamp(40px, 6vw, 96px);
   align-items: start;
-  margin-top: 40px;
-  margin-bottom: 56px;
+  margin-top: 48px;
+  margin-bottom: 120px;
 }
 .pillars-grid {
   display: grid;
@@ -340,7 +340,7 @@ a { color: inherit; }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(32px, 4vw, 56px);
-  margin-top: 56px;
+  margin-top: 96px;
   align-items: start;
 }
 .work-grid .case-title { font-size: clamp(32px, 3.2vw, 48px); }

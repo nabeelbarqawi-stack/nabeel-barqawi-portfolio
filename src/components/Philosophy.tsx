@@ -18,7 +18,7 @@ export default function Philosophy() {
     <section
       ref={pinRef}
       className="philosophy-pin"
-      style={{ height: "115vh", position: "relative", borderTop: "1px solid var(--hairline)" }}
+      style={{ height: "140vh", position: "relative", borderTop: "1px solid var(--hairline)" }}
     >
       <div
         className="philosophy-sticky"

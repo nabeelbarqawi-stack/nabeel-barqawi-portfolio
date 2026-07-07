@@ -2,9 +2,9 @@ import Link from "next/link";
 import Reveal from "./Reveal";
 
 const pillars = [
-  { t: "Clarity over noise", d: "I'd rather spend the first session asking questions than build the wrong thing fast." },
-  { t: "Human + technical", d: "I've built the model and sat with the person who has to use it." },
-  { t: "Execution with intent", d: "I'd rather ship something real this week than polish a plan no one acts on." },
+  { t: "Clarity over noise", d: "Five hard questions upfront beats building the wrong thing fast." },
+  { t: "Human + technical", d: "I've shipped the model and sat with the person who has to use it." },
+  { t: "Execution with intent", d: "Shipped beats perfect. I optimize for what's live." },
 ];
 
 export default function ApproachTeaser() {
