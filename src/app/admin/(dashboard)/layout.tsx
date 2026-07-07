@@ -1,7 +1,8 @@
 import Link from "next/link";
+import AdminTabs from "@/components/AdminTabs";
 import AdminLogoutButton from "@/components/AdminLogoutButton";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--fg)" }}>
       <header className="admin-header">
@@ -23,12 +24,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="admin-badge">Admin</span>
           </Link>
 
-          <nav className="admin-nav">
-            <Link href="/admin/leads" className="admin-nav-link">Leads</Link>
-            <Link href="/admin/invoices" className="admin-nav-link">Invoices</Link>
+          <AdminTabs />
+
+          <div className="admin-utility-nav">
+            <Link href="/admin/invoices/new" className="btn btn--ghost btn--sm">New invoice</Link>
             <Link href="/" className="admin-nav-link">View site</Link>
             <AdminLogoutButton />
-          </nav>
+          </div>
         </div>
       </header>
       {children}

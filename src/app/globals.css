@@ -936,12 +936,32 @@ a { color: inherit; }
   border-radius: 999px;
   padding: 3px 10px;
 }
-.admin-nav { display: flex; align-items: center; gap: 28px; }
+.admin-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+.admin-tab {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-dim);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: color 200ms, background 200ms;
+}
+.admin-tab:hover { color: var(--fg); }
+.admin-tab.active { color: var(--fg); background: var(--surface); }
+
+.admin-utility-nav { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
 .admin-nav-link {
   font-size: 13px;
   color: var(--fg-dim);
   text-decoration: none;
   transition: color 200ms;
+  background: none;
 }
 .admin-nav-link:hover { color: var(--fg); }
 .admin-container { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
@@ -1081,5 +1101,7 @@ a { color: inherit; }
 
   /* Admin dashboard */
   .admin-hub-grid { grid-template-columns: 1fr; }
-  .admin-nav { gap: 16px; }
+  .admin-header-inner { flex-wrap: wrap; gap: 12px; }
+  .admin-tabs { order: 3; width: 100%; justify-content: flex-start; }
+  .admin-utility-nav { gap: 12px; }
 }
