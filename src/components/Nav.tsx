@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useScrollY } from "@/hooks/useScrollUtils";
 
+// Absolute (/#section) rather than bare (#section) so these still work
+// when rendered on a non-homepage route like /programs/[slug] — a bare
+// hash only scrolls if the target id exists on the current page.
 const links: [string, string][] = [
-  ["Work", "#work"],
-  ["Approach", "#approach"],
-  ["Services", "#services"],
-  ["Programs", "#programs"],
-  ["About", "#about"],
+  ["Work", "/#work"],
+  ["Approach", "/#approach"],
+  ["Services", "/#services"],
+  ["Programs", "/#programs"],
+  ["About", "/#about"],
 ];
 
 export default function Nav() {
@@ -33,7 +37,7 @@ export default function Nav() {
       }}
     >
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a href="#top" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "var(--fg)" }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "var(--fg)" }}>
           <span
             style={{
               width: 10,
@@ -47,11 +51,11 @@ export default function Nav() {
             }}
           />
           <span style={{ fontSize: 14, letterSpacing: "-0.01em", fontWeight: 500 }}>Nabeel Barqawi</span>
-        </a>
+        </Link>
 
         <nav className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 36 }}>
           {links.map(([label, href]) => (
-            <a
+            <Link
               key={href}
               href={href}
               style={{ fontSize: 13, color: "var(--fg-dim)", textDecoration: "none", letterSpacing: "-0.005em", transition: "color 200ms" }}
@@ -59,11 +63,11 @@ export default function Nav() {
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--fg-dim)")}
             >
               {label}
-            </a>
+            </Link>
           ))}
-          <a href="#contact" className="btn btn--sm btn--primary">
+          <Link href="/#contact" className="btn btn--sm btn--primary">
             Get in touch
-          </a>
+          </Link>
         </nav>
 
         <button
@@ -96,13 +100,13 @@ export default function Nav() {
       >
         <div className="container" style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column", gap: 20 }}>
           {links.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)} style={{ fontSize: 18, color: "var(--fg)", textDecoration: "none" }}>
+            <Link key={href} href={href} onClick={() => setOpen(false)} style={{ fontSize: 18, color: "var(--fg)", textDecoration: "none" }}>
               {label}
-            </a>
+            </Link>
           ))}
-          <a href="#contact" onClick={() => setOpen(false)} className="btn btn--primary" style={{ marginTop: 8 }}>
+          <Link href="/#contact" onClick={() => setOpen(false)} className="btn btn--primary" style={{ marginTop: 8 }}>
             Get in touch
-          </a>
+          </Link>
         </div>
       </div>
     </header>
