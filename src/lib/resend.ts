@@ -10,7 +10,7 @@ export async function sendLeadReceivedEmail(params: { to: string; name: string; 
   const { to, name, program } = params;
 
   try {
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: `Nabeel Barqawi <${RESEND_FROM_EMAIL}>`,
       to,
       subject: `Got your request: ${program.name}`,
@@ -23,6 +23,12 @@ export async function sendLeadReceivedEmail(params: { to: string; name: string; 
         </div>
       `,
     });
+    // The Resend SDK returns { error } on API-level failures (e.g. sandbox
+    // restrictions) rather than throwing — must check it explicitly or
+    // failures pass by silently.
+    if (error) {
+      console.error("[resend] sendLeadReceivedEmail rejected", error);
+    }
   } catch (err) {
     console.error("[resend] sendLeadReceivedEmail failed", err);
   }
