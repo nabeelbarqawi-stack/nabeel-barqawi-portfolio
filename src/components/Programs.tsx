@@ -47,7 +47,7 @@ export default async function Programs() {
                 <div className="program-tagline">{program.tagline}</div>
                 <div className="program-desc">{program.description}</div>
                 <Link href={`/programs/${program.slug}`} className="service-cta">
-                  <span>{program.paymentMethod === "stripe" ? "Sign up" : "Get in touch"}</span>
+                  <span>{program.ctaLabel}</span>
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M3 6 H9 M6 3 L9 6 L6 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

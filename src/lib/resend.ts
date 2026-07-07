@@ -6,30 +6,24 @@ const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "onboarding@resend.de
 
 export const resend = new Resend(RESEND_API_KEY);
 
-export async function sendSignupConfirmationEmail(params: {
-  to: string;
-  name: string;
-  program: Program;
-  amountCents: number;
-}) {
-  const { to, name, program, amountCents } = params;
-  const amount = (amountCents / 100).toFixed(2);
+export async function sendLeadReceivedEmail(params: { to: string; name: string; program: Program }) {
+  const { to, name, program } = params;
 
   try {
     await resend.emails.send({
       from: `Nabeel Barqawi <${RESEND_FROM_EMAIL}>`,
       to,
-      subject: `You're confirmed: ${program.name}`,
+      subject: `Got your request: ${program.name}`,
       html: `
         <div style="font-family: -apple-system, sans-serif; max-width: 480px; margin: 0 auto; color: #0E0E12;">
           <p>Hi ${name},</p>
-          <p>You're confirmed for <strong>${program.name}</strong> — $${amount} charged. ${program.tagline}</p>
-          <p>I'll follow up shortly with next steps.</p>
+          <p>Thanks for reaching out about <strong>${program.name}</strong> — ${program.tagline}</p>
+          <p>I'll follow up shortly, and if it's a fit, I'll send over an invoice with next steps.</p>
           <p>— Nabeel</p>
         </div>
       `,
     });
   } catch (err) {
-    console.error("[resend] sendSignupConfirmationEmail failed", err);
+    console.error("[resend] sendLeadReceivedEmail failed", err);
   }
 }

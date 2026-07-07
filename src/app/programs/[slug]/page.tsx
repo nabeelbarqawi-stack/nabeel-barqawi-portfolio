@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { getProgram, PROGRAM_SLUGS } from "@/lib/programs";
 import { getOpenCohort } from "@/lib/supabase-admin";
 import ProgramSignupForm from "@/components/ProgramSignupForm";
@@ -16,7 +15,6 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
   if (!program) notFound();
 
   const cohort = program.capacityTracked ? await getOpenCohort(program.slug) : null;
-  const isFull = program.capacityTracked && (!cohort || cohort.seats_taken >= cohort.capacity);
 
   return (
     <>
@@ -45,22 +43,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
           )}
 
           <div style={{ marginTop: 48 }}>
-            {program.paymentMethod === "contact" ? (
-              <Link href={`/?intent=Workshop#contact`} className="btn btn--primary">
-                Get in touch
-              </Link>
-            ) : isFull ? (
-              <div>
-                <p style={{ fontSize: 14, color: "var(--fg-dim)", marginBottom: 16 }}>
-                  This cohort is full. Reach out and I&apos;ll let you know when the next one opens.
-                </p>
-                <Link href={`/?intent=Coaching#contact`} className="btn btn--ghost">
-                  Join the waitlist
-                </Link>
-              </div>
-            ) : (
-              <ProgramSignupForm slug={program.slug} />
-            )}
+            <ProgramSignupForm slug={program.slug} ctaLabel={program.ctaLabel} />
           </div>
         </div>
       </main>

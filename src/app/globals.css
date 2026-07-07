@@ -900,6 +900,105 @@ a { color: inherit; }
 .footer-top-link:hover { color: var(--fg); }
 
 /* ============================================================
+   ADMIN DASHBOARD
+============================================================ */
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(242,241,238,0.92);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  border-bottom: 1px solid var(--hairline);
+}
+.admin-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--fg);
+}
+.admin-badge {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.admin-nav { display: flex; align-items: center; gap: 28px; }
+.admin-nav-link {
+  font-size: 13px;
+  color: var(--fg-dim);
+  text-decoration: none;
+  transition: color 200ms;
+}
+.admin-nav-link:hover { color: var(--fg); }
+.admin-container { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+.admin-title { font-family: var(--font-display); font-size: clamp(26px, 3vw, 34px); letter-spacing: -0.02em; color: var(--fg); }
+.admin-subtitle { font-size: 14px; color: var(--fg-dim); margin-top: 8px; }
+
+.admin-hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+.admin-hub-card {
+  display: block;
+  padding: 28px;
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color 240ms;
+}
+.admin-hub-card:hover { border-color: var(--hairline-strong); }
+.admin-hub-card-title { font-family: var(--font-display); font-size: 20px; letter-spacing: -0.02em; }
+.admin-hub-card-desc { font-size: 13px; color: var(--fg-dim); margin-top: 8px; }
+
+.admin-table-wrap { border-top: 1px solid var(--hairline); margin-top: 32px; overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.admin-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-dimmer);
+  border-bottom: 1px solid var(--hairline);
+  white-space: nowrap;
+}
+.admin-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--fg-mid);
+  vertical-align: top;
+}
+.admin-table tr:hover td { background: var(--surface); }
+.admin-empty-row td { color: var(--fg-dimmer); padding: 32px 16px; }
+
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  color: var(--fg-dim);
+  white-space: nowrap;
+}
+.admin-pill--paid { color: var(--accent); border-color: var(--accent); }
+.admin-pill--open { color: var(--fg-mid); }
+
+.admin-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+/* ============================================================
    DARK-ON-DARK OVERRIDES (case visuals stay dark against light page)
 ============================================================ */
 .case-visual .case-chip {
@@ -979,4 +1078,8 @@ a { color: inherit; }
 
   /* Selected work header row — stack on very small screens */
   #work .section-title + .resume-link { margin-top: 16px; }
+
+  /* Admin dashboard */
+  .admin-hub-grid { grid-template-columns: 1fr; }
+  .admin-nav { gap: 16px; }
 }

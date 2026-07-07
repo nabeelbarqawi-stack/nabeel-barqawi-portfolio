@@ -6,9 +6,9 @@ export type Program = {
   name: string;
   tagline: string;
   description: string;
-  priceCents: number | null; // null = no fixed price (contact for quote)
+  priceCents: number | null; // null = no fixed price; invoice amount entered manually
   currency: string;
-  paymentMethod: "stripe" | "contact";
+  ctaLabel: string;
   capacityTracked: boolean;
 };
 
@@ -21,7 +21,7 @@ export const PROGRAMS: Record<ProgramSlug, Program> = {
       "A single 60-minute working session — bring a specific problem (positioning, a portfolio review, an AI-adoption question) and leave with a concrete plan.",
     priceCents: 15000, // $150 placeholder
     currency: "usd",
-    paymentMethod: "stripe",
+    ctaLabel: "Book a session",
     capacityTracked: false,
   },
   "five-week-program": {
@@ -32,7 +32,7 @@ export const PROGRAMS: Record<ProgramSlug, Program> = {
       "Five weeks, five sessions, one outcome — whether that's breaking into product, standing up an AI workflow for your team, or repositioning your career.",
     priceCents: 60000, // $600 placeholder
     currency: "usd",
-    paymentMethod: "stripe",
+    ctaLabel: "Apply now",
     capacityTracked: true,
   },
   "corporate-workshop": {
@@ -43,7 +43,7 @@ export const PROGRAMS: Record<ProgramSlug, Program> = {
       "A half-day or full-day workshop for your team — hands-on, practical, and tailored to what you're actually building. Pricing depends on scope; let's talk.",
     priceCents: null,
     currency: "usd",
-    paymentMethod: "contact",
+    ctaLabel: "Get in touch",
     capacityTracked: true,
   },
 };

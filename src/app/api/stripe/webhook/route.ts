@@ -2,23 +2,9 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { sendSignupConfirmationEmail } from "@/lib/resend";
-import { getProgram } from "@/lib/programs";
+import { notifyFormspree } from "@/lib/formspree";
 
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
-const FORMSPREE_FORM_ID = "xqewjded"; // same form Contact.tsx uses
-
-async function notifyFormspree(payload: Record<string, string>) {
-  try {
-    await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
-    });
-  } catch (err) {
-    console.error("[stripe/webhook] formspree notify failed", err);
-  }
-}
 
 export async function POST(request: Request) {
   const signature = request.headers.get("stripe-signature");
@@ -33,46 +19,41 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  if (event.type !== "checkout.session.completed" && event.type !== "checkout.session.async_payment_succeeded") {
+  if (event.type !== "invoice.paid") {
     return NextResponse.json({ received: true });
   }
 
-  const session = event.data.object as Stripe.Checkout.Session;
+  const stripeInvoice = event.data.object as Stripe.Invoice;
 
   try {
-    const { data: signup, error: fetchError } = await supabaseAdmin
-      .from("signups")
+    const { data: invoice, error: fetchError } = await supabaseAdmin
+      .from("invoices")
       .select("*")
-      .eq("stripe_checkout_session_id", session.id)
+      .eq("stripe_invoice_id", stripeInvoice.id)
       .maybeSingle();
 
     if (fetchError) throw fetchError;
 
-    if (!signup) {
-      console.error("[stripe/webhook] no signup row found for session", session.id);
+    if (!invoice) {
+      console.error("[stripe/webhook] no invoice row found for stripe invoice", stripeInvoice.id);
       return NextResponse.json({ received: true });
     }
 
-    if (signup.status === "paid") {
+    if (invoice.status === "paid") {
       // Already processed — Stripe retries webhooks, this keeps it idempotent.
       return NextResponse.json({ received: true });
     }
 
     const { error: updateError } = await supabaseAdmin
-      .from("signups")
-      .update({
-        status: "paid",
-        paid_at: new Date().toISOString(),
-        stripe_payment_intent_id:
-          typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
-      })
-      .eq("id", signup.id);
+      .from("invoices")
+      .update({ status: "paid", paid_at: new Date().toISOString() })
+      .eq("id", invoice.id);
 
     if (updateError) throw updateError;
 
-    if (signup.cohort_id) {
+    if (invoice.cohort_id) {
       const { error: rpcError } = await supabaseAdmin.rpc("increment_cohort_seat", {
-        p_cohort_id: signup.cohort_id,
+        p_cohort_id: invoice.cohort_id,
       });
       if (rpcError) {
         console.error("[stripe/webhook] increment_cohort_seat failed", rpcError);
@@ -80,23 +61,11 @@ export async function POST(request: Request) {
     }
 
     await notifyFormspree({
-      name: signup.name,
-      email: signup.email,
-      message: `New paid signup — ${signup.program_slug} — $${(signup.amount_cents / 100).toFixed(2)}${
-        signup.message ? `\n\nNote from client: ${signup.message}` : ""
-      }`,
-      _subject: `New signup: ${signup.program_slug}`,
+      name: invoice.client_name,
+      email: invoice.client_email,
+      message: `Invoice paid — ${invoice.description} — $${(invoice.amount_cents / 100).toFixed(2)}`,
+      _subject: `Invoice paid: ${invoice.client_name}`,
     });
-
-    const program = getProgram(signup.program_slug);
-    if (program) {
-      await sendSignupConfirmationEmail({
-        to: signup.email,
-        name: signup.name,
-        program,
-        amountCents: signup.amount_cents,
-      });
-    }
 
     return NextResponse.json({ received: true });
   } catch (err) {
