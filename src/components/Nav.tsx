@@ -4,15 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useScrollY } from "@/hooks/useScrollUtils";
 
-// Absolute (/#section) rather than bare (#section) so these still work
-// when rendered on a non-homepage route like /programs/[slug] — a bare
-// hash only scrolls if the target id exists on the current page.
 const links: [string, string][] = [
-  ["Work", "/#work"],
-  ["Approach", "/#approach"],
-  ["Services", "/#services"],
-  ["Programs", "/#programs"],
-  ["About", "/#about"],
+  ["Approach", "/approach"],
+  ["Programs", "/programs"],
+  ["About", "/about"],
 ];
 
 export default function Nav() {

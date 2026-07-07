@@ -1,15 +1,10 @@
 "use client";
 
-import Reveal from "./Reveal";
+import Link from "next/link";
 import Image from "next/image";
+import Reveal from "./Reveal";
 
-const facts = [
-  ["Based in", "Brooklyn, NY"],
-  ["Working on", "AI agents, conversational UX"],
-  ["Open to", "Full-time · Consulting · Advisory"],
-];
-
-export default function About() {
+export default function AboutTeaser() {
   return (
     <section id="about" className="section" style={{ borderTop: "1px solid var(--hairline)" }}>
       <div className="container">
@@ -20,7 +15,6 @@ export default function About() {
         </Reveal>
 
         <div className="about-grid">
-          {/* Portrait */}
           <Reveal delay={120}>
             <div className="portrait-frame">
               <div className="portrait-inner">
@@ -41,39 +35,28 @@ export default function About() {
             </div>
           </Reveal>
 
-          {/* Copy */}
           <div className="about-copy">
             <Reveal delay={200}>
-              <h2 className="section-title" style={{ marginBottom: 40 }}>
+              <h2 className="section-title" style={{ marginBottom: 32 }}>
                 A non-linear path, <em className="serif-accent">on purpose</em>.
               </h2>
             </Reveal>
 
             <Reveal delay={300}>
               <p className="about-para">
-                I didn&apos;t follow a straight line to product. That&apos;s the point. An Arab American background
-                taught me to hold multiple perspectives at once — to notice the assumption everyone else in the room
-                is treating as fact.
+                I didn&apos;t follow a straight line to product — an Arab American background taught me to hold
+                multiple perspectives at once, and to notice the assumption everyone else is treating as fact.
+                That instinct is now the actual job: finding the unclear goal underneath the technical problem.
               </p>
             </Reveal>
 
             <Reveal delay={400}>
-              <p className="about-para">
-                That instinct turned out to be the actual job. In AI especially, the hardest problems aren&apos;t the
-                models — they&apos;re the unclear goals, the unstated constraints, the behavior nobody wrote down.
-                That&apos;s the part I&apos;m good at.
-              </p>
-            </Reveal>
-
-            <Reveal delay={500}>
-              <div className="about-facts">
-                {facts.map(([k, v]) => (
-                  <div key={k} className="fact-row">
-                    <span className="fact-key">{k}</span>
-                    <span className="fact-val">{v}</span>
-                  </div>
-                ))}
-              </div>
+              <Link href="/about" className="btn btn--ghost" style={{ marginTop: 32, display: "inline-flex" }}>
+                More about me &amp; past work
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 6 }}>
+                  <path d="M3 6 H9 M6 3 L9 6 L6 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
             </Reveal>
           </div>
         </div>

@@ -35,15 +35,15 @@ const BASE_URL = "https://www.nabeelbarqawi.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "Nabeel Barqawi — Turning complexity into products that actually work.",
+  title: "Nabeel Barqawi — Product & AI coaching",
   description:
-    "AI-powered. Human-centered. Built to scale. I build AI-powered experiences used by millions.",
+    "I built the AI agents at Disney and CarMax that talk to millions of people a month. Now I coach the next person making that leap.",
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "Nabeel Barqawi — Product & AI",
-    description: "Turning complexity into products that actually work.",
+    title: "Nabeel Barqawi — Product & AI coaching",
+    description: "I built the AI agents at Disney and CarMax that talk to millions of people a month. Now I coach the next person making that leap.",
     url: BASE_URL,
     siteName: "Nabeel Barqawi",
     type: "website",
@@ -52,14 +52,14 @@ export const metadata: Metadata = {
         url: "/nabeel.jpg",
         width: 1200,
         height: 630,
-        alt: "Nabeel Barqawi — Product & AI",
+        alt: "Nabeel Barqawi — Product & AI coaching",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nabeel Barqawi — Product & AI",
-    description: "Turning complexity into products that actually work.",
+    title: "Nabeel Barqawi — Product & AI coaching",
+    description: "I built the AI agents at Disney and CarMax that talk to millions of people a month. Now I coach the next person making that leap.",
     images: ["/nabeel.jpg"],
   },
   robots: {
@@ -76,7 +76,7 @@ const jsonLd = {
   image: `${BASE_URL}/nabeel.jpg`,
   jobTitle: "Product & AI Leader",
   description:
-    "I build AI-powered products and experiences used by millions. Specialising in turning complex systems into clear, human-centred products.",
+    "Built AI agents at Disney and CarMax reaching millions of users. Now coaches engineers, PMs, and operators moving into product and AI roles.",
   email: "nabeelbarqawi@gmail.com",
   sameAs: [
     "https://linkedin.com/in/nabeelbarqawi",

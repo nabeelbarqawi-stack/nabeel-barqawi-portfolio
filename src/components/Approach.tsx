@@ -3,10 +3,10 @@
 import Reveal from "./Reveal";
 
 const pillars = [
-  { n: "01", t: "Clarity over noise", d: "Turns ambiguity into structured, actionable direction." },
-  { n: "02", t: "Human + technical", d: "Bridges AI systems with real user behavior and team needs." },
-  { n: "03", t: "Execution with intent", d: "Focuses on outcomes, not just output." },
-  { n: "04", t: "Collaborative by design", d: "Aligns teams, incorporates perspectives, and moves work forward." },
+  { n: "01", t: "Clarity over noise", d: "I'd rather ask five hard questions upfront than build the wrong thing fast." },
+  { n: "02", t: "Human + technical", d: "I've shipped the model and sat with the person who has to use it. Most people only do one." },
+  { n: "03", t: "Execution with intent", d: "Shipped beats perfect. I optimize for what's live, not what's in the deck." },
+  { n: "04", t: "Collaborative by design", d: "The best answer is rarely mine alone — I build it with the people who have to live with it." },
 ];
 
 export default function Approach() {
@@ -15,7 +15,7 @@ export default function Approach() {
       <div className="container">
         <Reveal>
           <div className="eyebrow">
-            <span className="eyebrow-dot" /> 02 — How I work
+            <span className="eyebrow-dot" /> How I work
           </div>
         </Reveal>
 
@@ -28,8 +28,8 @@ export default function Approach() {
 
           <Reveal delay={240}>
             <p className="section-body">
-              In complex systems, most problems aren&apos;t technical — they&apos;re unclear. I break things down to
-              first principles, align teams around what matters, and move quickly toward outcomes that actually work.
+              Most problems on my desk aren&apos;t technical — they&apos;re unclear. I break things down to first
+              principles, get the team aligned on what actually matters, and move fast without losing the plot.
             </p>
           </Reveal>
         </div>

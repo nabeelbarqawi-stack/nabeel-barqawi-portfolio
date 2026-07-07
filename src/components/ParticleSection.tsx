@@ -34,31 +34,6 @@ export default function ParticleSection() {
         }}
       />
 
-      {/* Label */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8 }}
-        style={{
-          position: "relative",
-          zIndex: 20,
-          textAlign: "center",
-          marginBottom: "clamp(20px, 4vw, 32px)",
-        }}
-      >
-        <span
-          style={{
-            fontSize: 11,
-            fontWeight: 500,
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            color: "rgba(245,245,245,0.25)",
-          }}
-        >
-          From complexity to clarity
-        </span>
-      </motion.div>
-
       {/* Canvas container — height scales with viewport on mobile */}
       <motion.div
         initial={{ opacity: 0 }}
