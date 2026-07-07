@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { sendSignupConfirmationEmail } from "@/lib/resend";
+import { getProgram } from "@/lib/programs";
 
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
 const FORMSPREE_FORM_ID = "xqewjded"; // same form Contact.tsx uses
@@ -85,6 +87,16 @@ export async function POST(request: Request) {
       }`,
       _subject: `New signup: ${signup.program_slug}`,
     });
+
+    const program = getProgram(signup.program_slug);
+    if (program) {
+      await sendSignupConfirmationEmail({
+        to: signup.email,
+        name: signup.name,
+        program,
+        amountCents: signup.amount_cents,
+      });
+    }
 
     return NextResponse.json({ received: true });
   } catch (err) {
