@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Approach — Nabeel Barqawi",
-  description: "How a session actually goes, what I won't do, and who this is (and isn't) for.",
+  description: "How a session actually goes, and how to tell if it's the right fit for you.",
 };
 
 const steps = [
@@ -15,10 +15,10 @@ const steps = [
   { t: "You leave with something to do", d: "Not a framework to admire later — a next action, sized for this week, that you can start on your own." },
 ];
 
-const notFor = [
-  "Looking for a generic AI curriculum you could get from a course",
-  "Want someone to agree with the plan you already made",
-  "Need a vendor to build the thing, not a coach to think it through with you",
+const fitFor = [
+  "You want a thinking partner, not a lecture",
+  "You'd rather leave with one clear next step than a stack of frameworks",
+  "You're dealing with something specific to you — not a generic curriculum problem",
 ];
 
 export default function ApproachPage() {
@@ -63,17 +63,17 @@ export default function ApproachPage() {
           <div className="container" style={{ maxWidth: 640 }}>
             <Reveal>
               <div className="eyebrow">
-                <span className="eyebrow-dot" /> Honestly
+                <span className="eyebrow-dot" /> Fit check
               </div>
             </Reveal>
             <Reveal delay={120}>
               <h2 className="section-title" style={{ marginTop: 32 }}>
-                This isn&apos;t for everyone, and that&apos;s the point.
+                How to know if this is right for you.
               </h2>
             </Reveal>
             <Reveal delay={220}>
               <ul style={{ marginTop: 32, display: "flex", flexDirection: "column", gap: 18 }}>
-                {notFor.map((item) => (
+                {fitFor.map((item) => (
                   <li key={item} style={{ display: "flex", gap: 14, fontSize: 15, lineHeight: 1.6, color: "var(--fg-dim)" }}>
                     <span style={{ color: "var(--fg-dimmer)", flexShrink: 0 }}>—</span>
                     <span>{item}</span>
@@ -83,7 +83,7 @@ export default function ApproachPage() {
             </Reveal>
             <Reveal delay={320}>
               <p style={{ marginTop: 40, fontSize: 15, lineHeight: 1.6, color: "var(--fg-dim)" }}>
-                If none of that sounds like you, a session probably won&apos;t either. If it does —
+                If that sounds like you, let&apos;s talk.
               </p>
             </Reveal>
             <Reveal delay={400}>
