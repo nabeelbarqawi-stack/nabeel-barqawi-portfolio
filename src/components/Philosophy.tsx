@@ -8,7 +8,7 @@ const SENTENCE =
 
 export default function Philosophy() {
   const pinRef = useRef<HTMLElement>(null);
-  const p = useScrollProgress(pinRef as React.RefObject<HTMLElement | null>, "enter");
+  const p = useScrollProgress(pinRef as React.RefObject<HTMLElement | null>, "enter", true);
 
   const words = SENTENCE.split(" ");
   const wordStart = 0.05;

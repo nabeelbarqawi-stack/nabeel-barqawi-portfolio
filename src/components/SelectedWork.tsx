@@ -15,6 +15,10 @@ interface DetailBlock {
   label: string;
   body: string;
 }
+interface Message {
+  from: "assistant" | "user";
+  text: string;
+}
 interface Project {
   name: string;
   tag: string;
@@ -22,7 +26,7 @@ interface Project {
   gradient: string;
   accent: string;
   chip: string;
-  lines: number[];
+  messages: Message[];
   pills: string[];
   metrics: Metric[];
   detail: DetailBlock[];
@@ -61,7 +65,7 @@ function CaseStudy({ index, project, expanded, onToggle }: {
   onToggle: () => void;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const p = useScrollProgress(ref as React.RefObject<HTMLElement | null>, "through");
+  const p = useScrollProgress(ref as React.RefObject<HTMLElement | null>, "through", true);
   const inView = p > 0.2;
 
   const visualScale = mapRange(p, 0.0, 0.5, 0.88, 1);
@@ -108,18 +112,20 @@ function CaseStudy({ index, project, expanded, onToggle }: {
               <span className="case-chip-dot" style={{ background: project.accent }} />
               <span>{project.chip}</span>
             </div>
-            <div className="case-lines">
-              {project.lines.map((l, i) => (
+            <div className="case-chat">
+              {project.messages.map((m, i) => (
                 <div
                   key={i}
-                  className="case-line"
+                  className={`case-bubble ${m.from === "user" ? "case-bubble--out" : "case-bubble--in"}`}
                   style={{
-                    width: l + "%",
+                    background: m.from === "user" ? project.accent : undefined,
                     opacity: inView ? 1 : 0,
-                    transition: `opacity 700ms ${i * 120 + 200}ms, transform 700ms ${i * 120 + 200}ms`,
-                    transform: inView ? "translateX(0)" : "translateX(-12px)",
+                    transition: `opacity 500ms ${i * 140 + 200}ms, transform 500ms ${i * 140 + 200}ms`,
+                    transform: inView ? "translateY(0)" : "translateY(10px)",
                   }}
-                />
+                >
+                  {m.text}
+                </div>
               ))}
             </div>
             <div className="case-pill-row">
@@ -193,7 +199,10 @@ const projects: Project[] = [
     gradient: "linear-gradient(135deg, #0b1530 0%, #1a1f4d 50%, #0d1b3a 100%)",
     accent: "#6ea8ff",
     chip: "Live · Automated Assist",
-    lines: [82, 64, 74, 48],
+    messages: [
+      { from: "user", text: "I need to update my payment method." },
+      { from: "assistant", text: "Sure — let's get that updated for you." },
+    ],
     pills: ["Sign-up", "Account", "Refunds", "Billing"],
     metrics: [
       { value: 2, suffix: "M+", label: "Monthly users" },
@@ -214,7 +223,10 @@ const projects: Project[] = [
     gradient: "linear-gradient(135deg, #1a0f0a 0%, #3a2418 50%, #1c120b 100%)",
     accent: "#ffb17a",
     chip: "Omnichannel · Web + SMS",
-    lines: [70, 88, 56, 72],
+    messages: [
+      { from: "user", text: "Can I get pre-approved for financing?" },
+      { from: "assistant", text: "Absolutely — let's find a plan that fits your budget." },
+    ],
     pills: ["Inventory", "Financing", "Trade-in", "Delivery"],
     metrics: [
       { value: 40, suffix: "%", label: "Containment" },

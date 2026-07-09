@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import NextCohort from "@/components/NextCohort";
 import Philosophy from "@/components/Philosophy";
 import ParticleSectionLoader from "@/components/ParticleSectionLoader";
 import Approach from "@/components/Approach";
@@ -19,6 +20,7 @@ export default function Home() {
       <Nav />
       <main id="main-content">
         <Hero />
+        <NextCohort />
         <Philosophy />
         <ParticleSectionLoader />
         <Approach />

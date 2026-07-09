@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useScrollY, easeOutCubic } from "@/hooks/useScrollUtils";
 import Reveal from "./Reveal";
 import CalBookingButton from "./CalBookingButton";
@@ -79,6 +80,8 @@ export default function Hero() {
           willChange: "opacity, transform",
         }}
       >
+      <div className="hero-grid">
+      <div className="hero-text">
         {/* Eyebrow */}
         <Reveal delay={100} y={12}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 48 }}>
@@ -178,6 +181,24 @@ export default function Hero() {
             </span>
           </div>
         </Reveal>
+      </div>
+
+      {/* Portrait */}
+      <Reveal delay={320} y={20} className="hero-portrait">
+        <div className="portrait-inner">
+          <Image
+            src="/nabeel.jpg"
+            alt="Nabeel Barqawi"
+            fill
+            sizes="(max-width: 900px) 0px, 440px"
+            className="portrait-img"
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            priority
+          />
+          <div className="portrait-vignette" />
+        </div>
+      </Reveal>
+      </div>
       </div>
     </section>
   );

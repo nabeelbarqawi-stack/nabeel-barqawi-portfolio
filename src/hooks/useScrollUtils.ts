@@ -43,9 +43,11 @@ export function useInViewOnce(
 
 export function useScrollProgress(
   ref: RefObject<HTMLElement | null>,
-  mode: "through" | "enter" | "pin" = "through"
+  mode: "through" | "enter" | "pin" = "through",
+  once: boolean = false
 ): number {
   const [p, setP] = useState(0);
+  const maxPRef = useRef(0);
   useEffect(() => {
     if (!ref.current) return;
     let raf = 0;
@@ -64,7 +66,12 @@ export function useScrollProgress(
       } else {
         progress = (vh - rect.top) / (vh + rect.height);
       }
-      setP(Math.max(0, Math.min(1, progress)));
+      progress = Math.max(0, Math.min(1, progress));
+      if (once) {
+        progress = Math.max(progress, maxPRef.current);
+        maxPRef.current = progress;
+      }
+      setP(progress);
     };
     const onScroll = () => {
       if (raf) return;
@@ -78,7 +85,7 @@ export function useScrollProgress(
       window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [ref, mode]);
+  }, [ref, mode, once]);
   return p;
 }
 

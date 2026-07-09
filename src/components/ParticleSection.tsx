@@ -15,8 +15,8 @@ export default function ParticleSection() {
       ref={ref}
       style={{
         position: "relative",
-        paddingTop: "clamp(48px, 8vw, 80px)",
-        paddingBottom: "clamp(48px, 8vw, 80px)",
+        paddingTop: "clamp(32px, 5vw, 48px)",
+        paddingBottom: "clamp(32px, 5vw, 48px)",
         borderTop: "1px solid var(--hairline)",
         overflow: "hidden",
       }}
@@ -52,7 +52,7 @@ export default function ParticleSection() {
             fontWeight: 500,
             letterSpacing: "0.25em",
             textTransform: "uppercase",
-            color: "rgba(245,245,245,0.25)",
+            color: "var(--fg-dimmer)",
           }}
         >
           From complexity to clarity
@@ -68,7 +68,7 @@ export default function ParticleSection() {
           position: "relative",
           zIndex: 0,
           width: "100%",
-          height: "clamp(200px, 45vw, 340px)",
+          height: "clamp(140px, 28vw, 220px)",
         }}
       >
         <ParticleCanvas />
