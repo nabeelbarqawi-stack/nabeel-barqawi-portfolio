@@ -1,12 +1,26 @@
-import { createClient } from "@supabase/supabase-js";
-
-const SUPABASE_URL = process.env.SUPABASE_URL!;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 // Service-role client — server-only, bypasses RLS. Never import this from a
 // client component or expose these env vars with a NEXT_PUBLIC_ prefix.
-export const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false },
+// Lazily constructed so `next build` succeeds without the env vars; they are
+// only required when a query actually runs.
+let client: SupabaseClient | null = null;
+
+function getClient(): SupabaseClient {
+  if (!client) {
+    client = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+      auth: { persistSession: false },
+    });
+  }
+  return client;
+}
+
+export const supabaseAdmin: SupabaseClient = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    const c = getClient() as unknown as Record<string | symbol, unknown>;
+    const value = c[prop];
+    return typeof value === "function" ? (value as (...a: unknown[]) => unknown).bind(c) : value;
+  },
 });
 
 export type Cohort = {

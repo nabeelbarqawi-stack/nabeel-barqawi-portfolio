@@ -1,16 +1,21 @@
 import { Resend } from "resend";
 import type { Program } from "./programs";
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY!;
 const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 
-export const resend = new Resend(RESEND_API_KEY);
+// Lazily constructed so `next build` succeeds without RESEND_API_KEY.
+let client: Resend | null = null;
+
+function getResend(): Resend {
+  if (!client) client = new Resend(process.env.RESEND_API_KEY!);
+  return client;
+}
 
 export async function sendLeadReceivedEmail(params: { to: string; name: string; program: Program }) {
   const { to, name, program } = params;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: `Nabeel Barqawi <${RESEND_FROM_EMAIL}>`,
       to,
       subject: `Got your request: ${program.name}`,

@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export async function POST(request: Request) {
+  const stripe = getStripe();
   const body = await request.json().catch(() => ({}));
   const { leadId, programSlug, cohortId, clientName, clientEmail, description, amountCents } = body as {
     leadId?: string;

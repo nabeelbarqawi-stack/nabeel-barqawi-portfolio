@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { notifyFormspree } from "@/lib/formspree";
 
-const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
+
 
 export async function POST(request: Request) {
+  const stripe = getStripe();
+  const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
   const signature = request.headers.get("stripe-signature");
   const rawBody = await request.text();
 

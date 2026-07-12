@@ -1,5 +1,10 @@
 import Stripe from "stripe";
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
+// Lazily constructed so `next build` succeeds without STRIPE_SECRET_KEY;
+// the key is only required when a Stripe route actually runs.
+let client: Stripe | null = null;
 
-export const stripe = new Stripe(STRIPE_SECRET_KEY);
+export function getStripe(): Stripe {
+  if (!client) client = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  return client;
+}
