@@ -18,7 +18,7 @@ export default function SpeakingPage() {
             <Link href="/contact" className="btn-primary" style={{ padding: "15px 28px", borderRadius: 12, fontSize: 15, boxShadow: "none" }}>Book me to speak →</Link>
           </div>
           <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", aspectRatio: "4/3", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 30px 80px rgba(0,0,0,0.6)", background: "#111119" }}>
-            <ImageFrame src="/photos/stage-wide.jpg" alt="Nabeel Barqawi on stage" fit="cover" />
+            <ImageFrame src="/photos/portrait-laptop.jpg" alt="Nabeel Barqawi on stage" fit="cover" />
           </div>
         </div>
       </section>
