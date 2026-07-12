@@ -16,7 +16,7 @@ export default function AboutPage() {
             <p style={{ fontSize: 18, lineHeight: 1.65, color: "#a5a3b8", maxWidth: 540 }}>From product manager to AI leader to educator, my path has been about one thing: turning complex technology into something people can actually use, ship, and learn from.</p>
           </div>
           <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)", aspectRatio: "3/4", boxShadow: "0 30px 80px rgba(0,0,0,0.6)", background: "#111119" }}>
-            <ImageFrame src="/portrait.png" alt="Nabeel Barqawi" fit="cover" />
+            <ImageFrame src="/photos/community-chat.jpg" alt="Nabeel Barqawi connecting at a community event" fit="cover" />
           </div>
         </div>
       </section>
@@ -56,9 +56,13 @@ export default function AboutPage() {
             ))}
           </div>
           <div className="grid-values-photos">
-            {["about-g1", "about-g2", "about-g3"].map((id) => (
-              <div key={id} style={{ position: "relative", borderRadius: 16, overflow: "hidden", aspectRatio: "1", border: "1px solid rgba(255,255,255,0.1)", background: "#111119" }}>
-                <ImageFrame alt="Personal photo" placeholder="Add a photo" />
+            {[
+              { id: "about-g1", src: "/photos/stage-wide.jpg", alt: "Speaking on stage" },
+              { id: "about-g2", src: "/photos/audience-qa.jpg", alt: "Audience Q&A at a workshop" },
+              { id: "about-g3", src: "/photos/portrait-laptop.jpg", alt: "Presenting a live session" },
+            ].map((g) => (
+              <div key={g.id} style={{ position: "relative", borderRadius: 16, overflow: "hidden", aspectRatio: "1", border: "1px solid rgba(255,255,255,0.1)", background: "#111119" }}>
+                <ImageFrame src={g.src} alt={g.alt} fit="cover" />
               </div>
             ))}
           </div>

@@ -75,8 +75,8 @@ export const COMMUNITY_STATS = [
 ];
 
 export const HOME_TALKS = [
-  { slot: "home-talk-1", event: "Liberty Mutual · Leadership Session", title: "Reimagining an AI-powered product lifecycle" },
-  { slot: "home-talk-2", event: "BrainStation", title: "Making AI accessible: from theory to hands-on" },
+  { slot: "home-talk-1", event: "Liberty Mutual · Leadership Session", title: "Reimagining an AI-powered product lifecycle", src: "/photos/stage-wide.jpg" },
+  { slot: "home-talk-2", event: "BrainStation", title: "Making AI accessible: from theory to hands-on", src: "/photos/audience-qa.jpg" },
 ];
 
 export const HOME_TESTIMONIALS = [
