@@ -36,8 +36,8 @@ export default function SpeakingPage() {
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(26px,3vw,36px)", letterSpacing: "-0.02em", marginBottom: 28 }}>Past &amp; upcoming</h2>
           <div style={{ display: "grid", gap: 14 }}>
             {TALKS.map((t) => (
-              <div key={t.title} style={{ background: "#fff", border: "1px solid #E7E5E0", borderRadius: 16, padding: "24px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+              <div key={t.title} className="talk-row" style={{ background: "#fff", border: "1px solid #E7E5E0", borderRadius: 16, padding: "24px 28px" }}>
+                <div className="talk-main">
                   <div style={{ fontSize: 12, fontWeight: 700, padding: "5px 12px", borderRadius: 100, color: t.accent ? "#0B0B12" : "var(--a1)", background: t.accent ? "var(--a2)" : "color-mix(in srgb, var(--a1) 14%, transparent)" }}>{t.tag}</div>
                   <div>
                     <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 18, letterSpacing: "-0.01em" }}>{t.title}</h3>

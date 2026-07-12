@@ -38,7 +38,7 @@ export default function ServicesPage() {
               <div>
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 27, letterSpacing: "-0.02em", marginBottom: 8 }}>{s.name}</h3>
                 <p style={{ fontSize: 16, lineHeight: 1.55, color: "#4d4c55", marginBottom: 24, maxWidth: 640 }}>{s.blurb}</p>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 24 }}>
+                <div className="grid-svc-detail" style={{ marginBottom: 24 }}>
                   {([["WHO IT'S FOR", s.who], ["PROBLEMS IT SOLVES", s.solves], ["OUTCOMES", s.outcomes], ["PROCESS", s.process]] as const).map(([label, val]) => (
                     <div key={label}>
                       <div style={{ fontSize: 11.5, fontWeight: 700, letterSpacing: "0.08em", color: "var(--a1)", marginBottom: 6 }}>{label}</div>

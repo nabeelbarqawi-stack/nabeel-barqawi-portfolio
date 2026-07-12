@@ -20,8 +20,8 @@ export default function Home() {
               PRODUCT LEADER · AI BUILDER · EDUCATOR
             </div>
             <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(38px,5.2vw,66px)", lineHeight: 1.02, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
-              Building the future of AI,<br />
-              <span style={{ background: "linear-gradient(120deg, var(--a1), var(--a2))", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>and helping people grow into it.</span>
+              Building the future of&nbsp;AI,<br className="br-desktop" />{" "}
+              <span style={{ background: "linear-gradient(120deg, var(--a1), var(--a2))", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>and helping people grow into&nbsp;it.</span>
             </h1>
             <p style={{ fontSize: 18, lineHeight: 1.6, color: "#a5a3b8", maxWidth: 520, marginBottom: 36 }}>
               I help teams ship AI products that matter, and help people build the careers to lead them. Product leadership, hands-on AI education, and a growing community of builders.
