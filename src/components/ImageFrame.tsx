@@ -10,12 +10,15 @@ export default function ImageFrame({
   src,
   alt,
   fit = "cover",
+  position,
   placeholder = "Add a photo",
   padded = false,
 }: {
   src?: string;
   alt: string;
   fit?: "cover" | "contain";
+  /** CSS object-position, e.g. "60% center" to bias a cover crop */
+  position?: string;
   placeholder?: string;
   /** contain-fit logos sit inside padding */
   padded?: boolean;
@@ -29,7 +32,7 @@ export default function ImageFrame({
         src={src}
         alt={alt}
         loading="lazy"
-        style={{ ...fill, objectFit: fit, padding: padded ? "2px" : 0 }}
+        style={{ ...fill, objectFit: fit, objectPosition: position, padding: padded ? "2px" : 0 }}
       />
     );
   }
