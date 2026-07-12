@@ -1,71 +1,55 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Manrope, Train_One } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import ChatKitWidget from "@/components/ChatKitWidget";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+import SiteUIProvider from "@/components/SiteUI";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
-const interTight = Inter_Tight({
-  subsets: ["latin"],
-  variable: "--font-inter-tight",
+  variable: "--font-space-grotesk",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
-const instrumentSerif = Instrument_Serif({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-instrument-serif",
+  variable: "--font-manrope",
   display: "swap",
-  weight: ["400"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800"],
 });
-const jetbrainsMono = JetBrains_Mono({
+const trainOne = Train_One({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-train-one",
   display: "swap",
-  weight: ["400", "500"],
+  weight: "400",
 });
 
 const BASE_URL = "https://www.nabeelbarqawi.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "Nabeel Barqawi — Turning complexity into products that actually work.",
+  title: "Nabeel Barqawi — Product Leader, AI Builder, Educator",
   description:
-    "AI-powered. Human-centered. Built to scale. I build AI-powered experiences used by millions.",
-  alternates: {
-    canonical: BASE_URL,
-  },
+    "I help teams ship AI products that matter, and help people build the careers to lead them. Product leadership, hands-on AI education, and a growing community of builders.",
+  alternates: { canonical: BASE_URL },
   openGraph: {
-    title: "Nabeel Barqawi — Product & AI",
-    description: "Turning complexity into products that actually work.",
+    title: "Nabeel Barqawi — Product Leader, AI Builder, Educator",
+    description: "Building the future of AI, and helping people grow into it.",
     url: BASE_URL,
     siteName: "Nabeel Barqawi",
     type: "website",
-    images: [
-      {
-        url: "/nabeel.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Nabeel Barqawi — Product & AI",
-      },
-    ],
+    images: [{ url: "/nabeel.jpg", width: 1200, height: 630, alt: "Nabeel Barqawi" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nabeel Barqawi — Product & AI",
-    description: "Turning complexity into products that actually work.",
+    title: "Nabeel Barqawi — Product Leader, AI Builder, Educator",
+    description: "Building the future of AI, and helping people grow into it.",
     images: ["/nabeel.jpg"],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 const jsonLd = {
@@ -74,50 +58,45 @@ const jsonLd = {
   name: "Nabeel Barqawi",
   url: BASE_URL,
   image: `${BASE_URL}/nabeel.jpg`,
-  jobTitle: "Product & AI Leader",
+  jobTitle: "Product Leader, AI Builder & Educator",
   description:
-    "I build AI-powered products and experiences used by millions. Specialising in turning complex systems into clear, human-centred products.",
+    "Product leader, AI builder, and educator helping people learn, build, connect, and create meaningful impact. Leading Conversational AI at Disney.",
   email: "nabeelbarqawi@gmail.com",
   sameAs: [
     "https://linkedin.com/in/nabeelbarqawi",
-    "https://x.com/nabeelbarqawi",
-    "https://github.com/nabeelbarqawi",
-    "https://nabeelbarqawi.substack.com",
+    "https://github.com/nabeelbarqawi-stack",
   ],
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${interTight.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${manrope.variable} ${trainOne.variable}`}
     >
       <head>
-        {/* Resource hints for third-party origins */}
         <link rel="preconnect" href="https://cdn.platform.openai.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.openai.com" />
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
-
-        {/* JSON-LD structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col" style={{ background: "var(--bg)", color: "var(--fg)" }}>
-        {/* Skip-to-content for keyboard / screen-reader users — shown on focus via CSS */}
+      <body style={{ background: "var(--ink)", color: "var(--fg)" }}>
         <a href="#main-content" className="skip-link">Skip to content</a>
 
-        {children}
+        <SiteUIProvider>
+          <Nav />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </SiteUIProvider>
+
         <ChatKitWidget />
         <Analytics />
 
-        {/* ChatKit web component — custom element registered by this CDN script */}
         <Script
           src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js"
           strategy="afterInteractive"

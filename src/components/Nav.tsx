@@ -1,109 +1,109 @@
 "use client";
 
 import { useState } from "react";
-import { useScrollY } from "@/hooks/useScrollUtils";
-
-const links: [string, string][] = [
-  ["Work", "#work"],
-  ["Approach", "#approach"],
-  ["Services", "#services"],
-  ["About", "#about"],
-];
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { List, X } from "@phosphor-icons/react";
+import { NAV_GROUPS, FOOTER_NAV } from "@/data/content";
 
 export default function Nav() {
-  const y = useScrollY();
-  const scrolled = y > 40;
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isActive = (match: string[]) => match.includes(pathname);
 
   return (
-    <header
+    <nav
       style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        padding: scrolled ? "14px 0" : "28px 0",
-        transition: "padding 400ms cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 400ms",
-        backdropFilter: (scrolled || open) ? "saturate(160%) blur(20px)" : "blur(0)",
-        WebkitBackdropFilter: (scrolled || open) ? "saturate(160%) blur(20px)" : "blur(0)",
-        background: (scrolled || open) ? "rgba(242,241,238,0.90)" : "transparent",
-        borderBottom: (scrolled || open) ? "1px solid rgba(0,0,0,0.08)" : "1px solid transparent",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16,
+        padding: "12px clamp(16px,3vw,40px)", background: "rgba(11,11,18,0.72)",
+        backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255,255,255,0.07)",
       }}
     >
-      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a href="#top" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "var(--fg)" }}>
-          <span
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: 2,
-              background: "var(--accent)",
-              boxShadow: "0 0 20px var(--accent-glow)",
-              transform: "rotate(45deg)",
-              display: "inline-block",
-              flexShrink: 0,
-            }}
-          />
-          <span style={{ fontSize: 14, letterSpacing: "-0.01em", fontWeight: 500 }}>Nabeel Barqawi</span>
-        </a>
-
-        <nav className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 36 }}>
-          {links.map(([label, href]) => (
-            <a
-              key={href}
-              href={href}
-              style={{ fontSize: 13, color: "var(--fg-dim)", textDecoration: "none", letterSpacing: "-0.005em", transition: "color 200ms" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--fg)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--fg-dim)")}
-            >
-              {label}
-            </a>
-          ))}
-          <a href="#contact" className="btn btn--sm btn--primary">
-            Get in touch
-          </a>
-        </nav>
-
-        <button
-          className="mobile-toggle"
-          onClick={() => setOpen((o) => !o)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          style={{ display: "none", background: "transparent", border: "none", color: "var(--fg)", cursor: "pointer", padding: 8 }}
+      <Link href="/" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center" }} aria-label="Nabeel Barqawi — home">
+        <span
+          style={{
+            fontFamily: "var(--font-wordmark)", fontWeight: 400, fontSize: 22, letterSpacing: "0.01em",
+            background: "linear-gradient(135deg, var(--a2), var(--a1))",
+            WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+            filter: "drop-shadow(0 0 14px color-mix(in srgb, var(--a2) 45%, transparent))",
+          }}
         >
-          <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true" focusable="false">
-            <path d={open ? "M2 2 L20 12 M2 12 L20 2" : "M0 1 H22 M0 13 H22"} stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        </button>
+          Nabeel Barqawi
+        </span>
+      </Link>
+
+      {/* Desktop nav */}
+      <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 2 }}>
+        {NAV_GROUPS.map((g) => (
+          <div
+            key={g.id}
+            onMouseEnter={() => setOpenMenu(g.children ? g.id : null)}
+            onMouseLeave={() => setOpenMenu(null)}
+            style={{ position: "relative" }}
+          >
+            <Link href={g.href} className={`nav-item${isActive(g.match) ? " active" : ""}`}>
+              {g.label}
+              {g.children && <span className="nav-caret" aria-hidden>▾</span>}
+            </Link>
+            {g.children && openMenu === g.id && (
+              <div style={{ position: "absolute", top: "100%", left: 0, paddingTop: 10 }}>
+                <div className="nav-drop">
+                  {g.children.map((c) => (
+                    <Link key={c.href} href={c.href} className="nav-drop-item" onClick={() => setOpenMenu(null)}>
+                      <span style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{c.label}</span>
+                      <span style={{ fontSize: 12, fontWeight: 500, color: "#8f8da5" }}>{c.desc}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
 
-      <div
-        id="mobile-menu"
-        className="mobile-menu"
-        aria-hidden={!open}
-        style={{
-          display: "none",
-          maxHeight: open ? 360 : 0,
-          overflow: "hidden",
-          transition: "max-height 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-          borderTop: open ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-          marginTop: open ? 12 : 0,
-          background: "rgba(242,241,238,0.98)",
-        }}
+      {/* Desktop CTA */}
+      <Link href="/contact" className="btn-book desktop-nav" style={{ display: "inline-block" }}>
+        Book a call
+      </Link>
+
+      {/* Mobile toggle */}
+      <button
+        className="mobile-toggle"
+        aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        aria-expanded={mobileOpen}
+        onClick={() => setMobileOpen((v) => !v)}
+        style={{ width: 42, height: 42, borderRadius: 11, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#fff" }}
       >
-        <div className="container" style={{ padding: "24px 0 28px", display: "flex", flexDirection: "column", gap: 20 }}>
-          {links.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)} style={{ fontSize: 18, color: "var(--fg)", textDecoration: "none" }}>
-              {label}
-            </a>
-          ))}
-          <a href="#contact" onClick={() => setOpen(false)} className="btn btn--primary" style={{ marginTop: 8 }}>
-            Get in touch
-          </a>
+        {mobileOpen ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+      </button>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div
+          className="mobile-menu"
+          style={{
+            position: "absolute", top: "100%", left: 0, right: 0, display: "block",
+            background: "rgba(13,13,20,0.98)", backdropFilter: "blur(20px)",
+            borderBottom: "1px solid rgba(255,255,255,0.1)", padding: "12px clamp(16px,3vw,40px) 22px",
+          }}
+        >
+          <div style={{ display: "grid", gap: 2 }}>
+            <Link href="/" className={`nav-item${pathname === "/" ? " active" : ""}`} onClick={() => setMobileOpen(false)}>Home</Link>
+            {FOOTER_NAV.map((l) => (
+              <Link key={l.href} href={l.href} className={`nav-item${pathname === l.href ? " active" : ""}`} onClick={() => setMobileOpen(false)}>
+                {l.label}
+              </Link>
+            ))}
+          </div>
+          <Link href="/contact" className="btn-book" onClick={() => setMobileOpen(false)} style={{ display: "block", textAlign: "center", marginTop: 14 }}>
+            Book a call
+          </Link>
         </div>
-      </div>
-    </header>
+      )}
+    </nav>
   );
 }

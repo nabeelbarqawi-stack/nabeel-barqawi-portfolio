@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 
+const BASE = "https://www.nabeelbarqawi.com";
+const ROUTES = ["", "about", "services", "speaking", "coaching", "community", "resources", "contact"];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://www.nabeelbarqawi.com",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-  ];
+  const lastModified = new Date();
+  return ROUTES.map((path) => ({
+    url: path ? `${BASE}/${path}` : BASE,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: path === "" ? 1 : 0.8,
+  }));
 }

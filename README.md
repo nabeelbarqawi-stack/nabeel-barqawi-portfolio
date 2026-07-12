@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nabeel Barqawi — personal website
 
-## Getting Started
+A premium, fully-navigable multi-page site (not a one-page scroller) built with
+**Next.js 16 (App Router) + React 19 + TypeScript**. Rebuilt from a Claude Design
+handoff — dark hero + light content hybrid, retrofuturism dialed to ~50% (soft
+neon glows, glassmorphism, grid textures), on the **Ember** palette
+(coral `#FF6E7F` + amber `#FFB24B`).
 
-First, run the development server:
+## Pages
+
+`/` Home · `/about` · `/services` · `/speaking` · `/coaching` · `/community` ·
+`/resources` · `/contact` — with a sticky glass nav (hover dropdowns group
+Services and Community), a "Join the community" slide-in drawer, and site-wide
+newsletter capture.
+
+## Type & assets
+
+- **Fonts** (via `next/font`): Space Grotesk (display), Manrope (body),
+  Train One (name wordmark).
+- **Icons**: `@phosphor-icons/react` (bold weight) — SVG components, no external
+  font (keeps within the CSP).
+- **Images**: the portrait and partner logos live in `public/`. Empty photo
+  spots (about gallery, speaking stage, talk thumbnails) render styled
+  placeholders — drop a file in `public/` and point the `<ImageFrame>` at it.
+
+## Integrations
+
+- **Cal.com** booking modal (`src/components/CalBookingButton.tsx`) — the Contact
+  "doors" open it.
+- **Formspree** (`xqewjded`) — the Join drawer and every newsletter form submit
+  to it; each carries a hidden `form_type` so submissions are identifiable.
+- **OpenAI ChatKit** assistant + **Vercel Analytics** (unchanged from before).
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build (type-checks + prerenders all pages)
+npm run start    # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The ChatKit route needs `OPENAI_API_KEY` set in the environment at runtime.
