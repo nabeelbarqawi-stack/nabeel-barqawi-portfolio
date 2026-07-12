@@ -34,7 +34,7 @@ export default function Home() {
 
           <div style={{ position: "relative" }}>
             <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 0 0 1px color-mix(in srgb, var(--a1) 20%, transparent),0 30px 80px rgba(0,0,0,0.6)", aspectRatio: "4/5", background: "#111119" }}>
-              <ImageFrame src="/photos/stage-wide.jpg" alt="Nabeel Barqawi presenting on stage" fit="cover" position="58% center" />
+              <ImageFrame src="/photos/stage-wide.jpg" alt="Nabeel Barqawi presenting on stage" fit="cover" position="85% center" />
             </div>
             <div style={{ position: "absolute", bottom: -22, left: -26, padding: "16px 20px", borderRadius: 16, background: "rgba(17,17,25,0.85)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 12px 40px rgba(0,0,0,0.5)", animation: "floatY 6s ease-in-out infinite" }}>
               <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 24, color: "#fff" }}>500+</div>

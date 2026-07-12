@@ -59,7 +59,7 @@ export const BRANDS: { id: string; name: string; src?: string }[] = [
   { id: "carmax", name: "CarMax", src: "/logos/carmax.png" },
   { id: "disney", name: "Disney", src: "/logos/disney.png" },
   { id: "bread", name: "Bread Financial", src: "/logos/bread.png" },
-  { id: "your-company", name: "Your company" },
+  { id: "prounitas", name: "ProUnitas", src: "/logos/prounitas.png" },
 ];
 
 export const FEATURED_SERVICES = [
