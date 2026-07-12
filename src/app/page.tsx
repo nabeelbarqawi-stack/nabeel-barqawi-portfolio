@@ -2,7 +2,7 @@ import Link from "next/link";
 import ImageFrame from "@/components/ImageFrame";
 import Testimonial from "@/components/Testimonial";
 import JoinCommunityButton from "@/components/JoinCommunityButton";
-import { BRANDS, FEATURED_SERVICES, COMMUNITY_STATS, HOME_TALKS, HOME_TESTIMONIALS, HOME_RESOURCES } from "@/data/content";
+import { BRANDS, FEATURED_SERVICES, COMMUNITY_STATS, HOME_TALKS, HOME_TESTIMONIALS } from "@/data/content";
 
 export default function Home() {
   return (
@@ -142,32 +142,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ LATEST CONTENT ============ */}
-      <section style={{ background: "var(--paper)", color: "var(--paper-ink)", padding: "110px clamp(20px,4vw,44px)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, marginBottom: 44, flexWrap: "wrap" }}>
-            <div>
-              <div style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: "0.1em", color: "var(--a1)", marginBottom: 12 }}>LEARN WITH ME</div>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(30px,3.6vw,44px)", letterSpacing: "-0.025em" }}>Latest content</h2>
-            </div>
-            <Link href="/resources" className="btn-outline-dark" style={{ fontSize: 14.5, padding: "12px 22px", borderRadius: 11 }}>Resource hub →</Link>
-          </div>
-          <div className="grid-3">
-            {HOME_RESOURCES.map((r) => (
-              <Link key={r.title} href="/resources" className="card-content" style={{ display: "block", textDecoration: "none", color: "inherit" }}>
-                <div style={{ aspectRatio: "16/10", background: "linear-gradient(135deg,#151521,#0B0B12)", position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(color-mix(in srgb, var(--a1) 12%, transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb, var(--a1) 12%, transparent) 1px,transparent 1px)", backgroundSize: "24px 24px" }} />
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--a2)", position: "relative" }}>{r.type}</div>
-                </div>
-                <div style={{ padding: 22 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--a1)", marginBottom: 8 }}>{r.cat}</div>
-                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 17, letterSpacing: "-0.01em", lineHeight: 1.25 }}>{r.title}</h3>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

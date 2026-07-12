@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useChatKit, ChatKit } from "@openai/chatkit-react";
 
 function getDeviceId(): string {
@@ -16,8 +16,38 @@ function getDeviceId(): string {
   }
 }
 
+// Fades the closed FAB out near the bottom of the page so it never sits on
+// top of footer content (e.g. the "Back to top" link, which shares the same
+// bottom-right corner).
+function useNearBottom(threshold = 160): boolean {
+  const [nearBottom, setNearBottom] = useState(false);
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - threshold;
+      setNearBottom(scrolledToBottom);
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(check);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    check();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [threshold]);
+  return nearBottom;
+}
+
 export default function ChatKitWidget() {
   const [open, setOpen] = useState(false);
+  const nearBottom = useNearBottom();
 
   const getClientSecret = useCallback(
     async (_current: string | null): Promise<string> => {
@@ -168,7 +198,8 @@ export default function ChatKitWidget() {
         </div>
       </div>
 
-      {/* FAB toggle */}
+      {/* FAB toggle — fades out near the page bottom so it never sits on top
+          of footer content (e.g. the "Back to top" link, same corner). */}
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? "Close chat" : "Open chat with Beelo"}
@@ -189,7 +220,10 @@ export default function ChatKitWidget() {
           alignItems: "center",
           justifyContent: "center",
           color: "#FFFFFF",
-          transition: "transform 180ms ease, box-shadow 180ms ease",
+          opacity: nearBottom && !open ? 0 : 1,
+          pointerEvents: nearBottom && !open ? "none" : "auto",
+          transform: nearBottom && !open ? "scale(0.85) translateY(8px)" : "scale(1) translateY(0)",
+          transition: "opacity 220ms ease, transform 220ms ease, box-shadow 180ms ease",
         }}
       >
         {open ? (
