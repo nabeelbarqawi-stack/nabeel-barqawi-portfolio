@@ -41,13 +41,13 @@ export const metadata: Metadata = {
     url: BASE_URL,
     siteName: "Nabeel Barqawi",
     type: "website",
-    images: [{ url: "/nabeel.jpg", width: 1200, height: 630, alt: "Nabeel Barqawi" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Nabeel Barqawi presenting on stage" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nabeel Barqawi — Product Leader, AI Builder, Educator",
     description: "Building the future of AI, and helping people grow into it.",
-    images: ["/nabeel.jpg"],
+    images: ["/og.jpg"],
   },
   robots: { index: true, follow: true },
 };
@@ -57,7 +57,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Nabeel Barqawi",
   url: BASE_URL,
-  image: `${BASE_URL}/nabeel.jpg`,
+  image: `${BASE_URL}/og.jpg`,
   jobTitle: "Product Leader, AI Builder & Educator",
   description:
     "Product leader, AI builder, and educator helping people learn, build, connect, and create meaningful impact. Leading Conversational AI at Disney.",
