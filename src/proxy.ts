@@ -11,7 +11,7 @@ function sign(value: string) {
   return createHmac("sha256", ADMIN_PASSWORD || "").update(value).digest("hex");
 }
 
-function isValidSession(cookieValue: string | undefined): boolean {
+export function isValidSession(cookieValue: string | undefined): boolean {
   if (!cookieValue || !ADMIN_PASSWORD) return false;
   const [expiry, signature] = cookieValue.split(".");
   if (!expiry || !signature) return false;

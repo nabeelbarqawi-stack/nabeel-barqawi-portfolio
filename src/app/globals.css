@@ -378,6 +378,9 @@ a:hover { color: var(--a2); }
 .btn--ghost:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
 .btn--sm { padding: 7px 13px; font-size: 12.5px; border-radius: 8px; }
 .btn--full { width: 100%; }
+.admin-btn-danger { color: #ff8a8a; }
+.admin-btn-danger:hover { color: #ff9d9d; background: rgba(255, 80, 80, 0.13); border-color: rgba(255, 80, 80, 0.4); }
+.admin-btn-danger:disabled { opacity: .6; cursor: default; }
 
 /* ---- Forms (login + invoice) ---- */
 .contact-form { display: flex; flex-direction: column; gap: 18px; }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getProgram } from "@/lib/programs";
+import DeleteRecordButton from "@/components/DeleteRecordButton";
 
 export const dynamic = "force-dynamic";
 
@@ -47,13 +48,16 @@ export default async function AdminLeadsPage() {
                 <td>{lead.email}</td>
                 <td style={{ maxWidth: 260 }}>{lead.message || "—"}</td>
                 <td>
-                  <Link
-                    href={`/admin/invoices/new?leadId=${lead.id}`}
-                    className="btn btn--ghost btn--sm"
-                    style={{ whiteSpace: "nowrap" }}
-                  >
-                    Send invoice
-                  </Link>
+                  <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+                    <Link
+                      href={`/admin/invoices/new?leadId=${lead.id}`}
+                      className="btn btn--ghost btn--sm"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Send invoice
+                    </Link>
+                    <DeleteRecordButton table="leads" id={lead.id} label={`lead ${lead.name}`} />
+                  </div>
                 </td>
               </tr>
             ))}

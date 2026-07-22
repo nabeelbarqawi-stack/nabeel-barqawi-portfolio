@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import DeleteRecordButton from "@/components/DeleteRecordButton";
 
 export const dynamic = "force-dynamic";
 
@@ -53,13 +54,16 @@ export default async function AdminMessagesPage() {
                 <td>{m.email}</td>
                 <td style={{ maxWidth: 260 }}>{m.message || "—"}</td>
                 <td>
-                  <a
-                    href={`mailto:${m.email}`}
-                    className="btn btn--ghost btn--sm"
-                    style={{ whiteSpace: "nowrap" }}
-                  >
-                    Reply
-                  </a>
+                  <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+                    <a
+                      href={`mailto:${m.email}`}
+                      className="btn btn--ghost btn--sm"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Reply
+                    </a>
+                    <DeleteRecordButton table="contact_messages" id={m.id} label={`message from ${m.name}`} />
+                  </div>
                 </td>
               </tr>
             ))}
