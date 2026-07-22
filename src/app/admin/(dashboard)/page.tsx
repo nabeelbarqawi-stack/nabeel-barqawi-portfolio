@@ -20,6 +20,10 @@ export default function AdminHomePage() {
           <div className="admin-hub-card-title">Leads</div>
           <div className="admin-hub-card-desc">Everyone who filled out a sign-up form, across all programs.</div>
         </Link>
+        <Link href="/admin/messages" className="admin-hub-card">
+          <div className="admin-hub-card-title">Messages</div>
+          <div className="admin-hub-card-desc">Everyone who submitted the community / contact form — name, email, and note.</div>
+        </Link>
         <Link href="/admin/invoices" className="admin-hub-card">
           <div className="admin-hub-card-title">Invoices</div>
           <div className="admin-hub-card-desc">Every invoice sent, its status, and a link to create a new one.</div>
