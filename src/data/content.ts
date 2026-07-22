@@ -192,11 +192,11 @@ export const RESOURCES = [
   { type: "PODCAST", cat: "PODCAST", title: "On building trustworthy AI", desc: "A conversation about human-centered AI and the future of work." },
 ];
 
-export type ContactCard = { icon: string; title: string; body: string; action: string; kind: "cal" | "mailto" | "link"; href?: string };
+export type ContactCard = { icon: string; title: string; body: string; action: string; kind: "cal" | "mailto" | "link" | "drawer"; href?: string };
 
 export const CONTACT_CARDS: ContactCard[] = [
   { icon: "C", title: "Book a coaching call", body: "1:1 coaching for PMs and aspiring AI product leaders. Let’s talk about your goals.", action: "Schedule a call", kind: "cal" },
-  { icon: "B", title: "Business inquiries", body: "Consulting, workshops, fractional leadership, tell me about your team and challenge.", action: "Start the conversation", kind: "mailto" },
-  { icon: "S", title: "Speaking requests", body: "Bring an energizing, practical AI talk to your event or leadership team.", action: "Request a talk", kind: "cal" },
+  { icon: "B", title: "Business inquiries", body: "Consulting, workshops, fractional leadership, tell me about your team and challenge.", action: "Start the conversation", kind: "drawer" },
+  { icon: "S", title: "Speaking requests", body: "Bring an energizing, practical AI talk to your event or leadership team.", action: "Request a talk", kind: "drawer" },
   { icon: "in", title: "LinkedIn", body: "Follow along, say hi, and see what the community is building day to day.", action: "Connect on LinkedIn", kind: "link", href: CONTACT.linkedin },
 ];

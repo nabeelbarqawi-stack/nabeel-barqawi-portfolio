@@ -1,4 +1,4 @@
-import Link from "next/link";
+import JoinCommunityButton from "@/components/JoinCommunityButton";
 import { Handshake, Brain, PresentationChart, MicrophoneStage } from "@phosphor-icons/react/dist/ssr";
 import { SERVICES, type Service } from "@/data/content";
 
@@ -46,7 +46,7 @@ export default function ServicesPage() {
                     </div>
                   ))}
                 </div>
-                <Link href="/contact" className="btn-dark-accent" style={{ padding: "12px 22px", borderRadius: 11, fontSize: 14 }}>{s.cta} →</Link>
+                <JoinCommunityButton className="btn-dark-accent" style={{ padding: "12px 22px", borderRadius: 11, fontSize: 14 }}>{s.cta} →</JoinCommunityButton>
               </div>
             </div>
           ))}

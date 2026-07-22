@@ -1,19 +1,24 @@
 "use client";
 
 import { openBookingModal } from "./CalBookingButton";
+import { useSiteUI } from "./SiteUI";
 import { CONTACT_CARDS, CONTACT, type ContactCard } from "@/data/content";
 
-function handle(card: ContactCard) {
-  if (card.kind === "cal") {
-    void openBookingModal();
-  } else if (card.kind === "mailto") {
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(card.title)}`;
-  } else if (card.kind === "link" && card.href) {
-    window.open(card.href, "_blank", "noopener,noreferrer");
-  }
-}
-
 export default function ContactCards() {
+  const { openJoin } = useSiteUI();
+
+  function handle(card: ContactCard) {
+    if (card.kind === "drawer") {
+      openJoin();
+    } else if (card.kind === "cal") {
+      void openBookingModal();
+    } else if (card.kind === "mailto") {
+      window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(card.title)}`;
+    } else if (card.kind === "link" && card.href) {
+      window.open(card.href, "_blank", "noopener,noreferrer");
+    }
+  }
+
   return (
     <div className="grid-contact-cards">
       {CONTACT_CARDS.map((c) => (
