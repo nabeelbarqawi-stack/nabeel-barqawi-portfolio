@@ -48,7 +48,7 @@ export default async function AdminMessagesPage() {
             {messages.map((m) => (
               <tr key={m.id}>
                 <td>{new Date(m.created_at).toLocaleDateString()}</td>
-                <td>{m.intent || "—"}</td>
+                <td>{m.intent ? <span className="admin-pill admin-pill--muted">{m.intent}</span> : "—"}</td>
                 <td>{m.name}</td>
                 <td>{m.email}</td>
                 <td style={{ maxWidth: 260 }}>{m.message || "—"}</td>

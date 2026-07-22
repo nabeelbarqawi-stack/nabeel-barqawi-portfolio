@@ -37,9 +37,9 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <form onSubmit={handleSubmit} className="contact-form" noValidate style={{ width: 320 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 8 }}>
+    <div className="admin-login-wrap">
+      <form onSubmit={handleSubmit} className="contact-form admin-login-card" noValidate>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 2 }}>
           <span
             style={{
               width: 10,
@@ -51,8 +51,15 @@ export default function AdminLoginPage() {
               display: "inline-block",
             }}
           />
-          <span style={{ fontSize: 14, fontWeight: 500 }}>Nabeel Barqawi</span>
+          <span style={{ fontSize: 14, fontWeight: 600 }}>Nabeel Barqawi</span>
           <span className="admin-badge">Admin</span>
+        </div>
+
+        <div style={{ textAlign: "center", marginBottom: 6 }}>
+          <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 23, color: "#fff", letterSpacing: "-0.02em" }}>
+            Welcome back
+          </div>
+          <div style={{ fontSize: 13, color: "#a5a3b8", marginTop: 4 }}>Enter your password to continue.</div>
         </div>
 
         <div className="field">
