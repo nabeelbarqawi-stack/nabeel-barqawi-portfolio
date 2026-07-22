@@ -1,4 +1,4 @@
-import Link from "next/link";
+import CalBookingButton from "@/components/CalBookingButton";
 import Testimonial from "@/components/Testimonial";
 import { COACHING_FOR, CURRICULUM, COACHING_TESTIMONIALS, FAQS } from "@/data/content";
 
@@ -14,7 +14,7 @@ export default function CoachingPage() {
           <div style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: "0.1em", color: "var(--a2)", marginBottom: 16 }}>COACHING</div>
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(34px,4.6vw,58px)", color: "#fff", letterSpacing: "-0.03em", lineHeight: 1.04, marginBottom: 22 }}>Grow into the product leader you&apos;re becoming.</h1>
           <p style={{ fontSize: 18, lineHeight: 1.6, color: "#a5a3b8", marginBottom: 34 }}>1:1 coaching for PMs and aspiring AI product leaders, a structured, human partnership focused on real outcomes.</p>
-          <Link href="/contact" className="btn-primary" style={{ padding: "15px 30px", borderRadius: 12, fontSize: 15 }}>Book a coaching call →</Link>
+          <CalBookingButton className="btn-primary" style={{ padding: "15px 30px", borderRadius: 12, fontSize: 15 }}>Book a coaching call →</CalBookingButton>
         </div>
       </section>
 

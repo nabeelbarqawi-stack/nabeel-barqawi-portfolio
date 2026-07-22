@@ -9,7 +9,16 @@ export default function ContactCards() {
 
   function handle(card: ContactCard) {
     if (card.kind === "drawer") {
-      openJoin();
+      openJoin({
+        eyebrow: card.title.toUpperCase(),
+        title: "Let's talk.",
+        subtitle: card.body,
+        placeholder: "A few details about what you need…",
+        button: `${card.action} →`,
+        intent: card.title,
+        success: "Message sent.",
+        successNote: "Thanks — I'll get back to you soon.",
+      });
     } else if (card.kind === "cal") {
       void openBookingModal();
     } else if (card.kind === "mailto") {

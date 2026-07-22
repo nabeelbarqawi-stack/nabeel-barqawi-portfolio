@@ -1,4 +1,5 @@
 import JoinCommunityButton from "@/components/JoinCommunityButton";
+import CalBookingButton from "@/components/CalBookingButton";
 import { Handshake, Brain, PresentationChart, MicrophoneStage } from "@phosphor-icons/react/dist/ssr";
 import { SERVICES, type Service } from "@/data/content";
 
@@ -46,7 +47,24 @@ export default function ServicesPage() {
                     </div>
                   ))}
                 </div>
-                <JoinCommunityButton className="btn-dark-accent" style={{ padding: "12px 22px", borderRadius: 11, fontSize: 14 }}>{s.cta} →</JoinCommunityButton>
+                {s.book === "cal" ? (
+                  <CalBookingButton className="btn-dark-accent" style={{ padding: "12px 22px", borderRadius: 11, fontSize: 14 }}>{s.cta} →</CalBookingButton>
+                ) : (
+                  <JoinCommunityButton
+                    className="btn-dark-accent"
+                    style={{ padding: "12px 22px", borderRadius: 11, fontSize: 14 }}
+                    context={{
+                      eyebrow: s.name.toUpperCase(),
+                      title: "Let's talk.",
+                      subtitle: s.blurb,
+                      placeholder: "A few details about your team and goals…",
+                      button: `${s.cta} →`,
+                      intent: s.name,
+                      success: "Message sent.",
+                      successNote: "Thanks — I'll get back to you soon.",
+                    }}
+                  >{s.cta} →</JoinCommunityButton>
+                )}
               </div>
             </div>
           ))}
