@@ -1,4 +1,4 @@
-import Link from "next/link";
+import JoinCommunityButton from "@/components/JoinCommunityButton";
 import Testimonial from "@/components/Testimonial";
 import NewsletterForm from "@/components/NewsletterForm";
 import { COMMUNITY_AREAS, EVENTS, COMMUNITY_TESTIMONIALS } from "@/data/content";
@@ -56,7 +56,21 @@ export default function CommunityPage() {
                     <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 17, color: "#fff" }}>{e.title}</h3>
                     <div style={{ fontSize: 13, color: "#a5a3b8", marginTop: 2 }}>{e.kind} · {e.place}</div>
                   </div>
-                  <Link href="/contact" className="rsvp-btn">RSVP</Link>
+                  <JoinCommunityButton
+                    className="rsvp-btn"
+                    context={{
+                      eyebrow: "UPCOMING EVENT",
+                      title: "Get the details.",
+                      subtitle: `Leave your info and I'll send you the date and details for "${e.title}" as soon as it's scheduled.`,
+                      placeholder: "Anything you'd like to know? (optional)",
+                      button: "Notify me →",
+                      intent: `Event: ${e.title}`,
+                      success: "You're on the list.",
+                      successNote: "I'll email you the moment this event has a date.",
+                    }}
+                  >
+                    Notify me
+                  </JoinCommunityButton>
                 </div>
               ))}
             </div>
