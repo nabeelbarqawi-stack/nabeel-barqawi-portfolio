@@ -3,10 +3,7 @@ import { Space_Grotesk, Manrope, Train_One } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import ChatKitWidget from "@/components/ChatKitWidget";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import SiteUIProvider from "@/components/SiteUI";
+import SiteChrome from "@/components/SiteChrome";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -88,13 +85,8 @@ export default function RootLayout({
       <body style={{ background: "var(--ink)", color: "var(--fg)" }}>
         <a href="#main-content" className="skip-link">Skip to content</a>
 
-        <SiteUIProvider>
-          <Nav />
-          <main id="main-content">{children}</main>
-          <Footer />
-        </SiteUIProvider>
+        <SiteChrome>{children}</SiteChrome>
 
-        <ChatKitWidget />
         <Analytics />
 
         <Script
