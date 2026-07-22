@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getProgram } from "@/lib/programs";
+import DeleteRecordButton from "@/components/DeleteRecordButton";
 
 export const dynamic = "force-dynamic";
 
@@ -56,11 +57,14 @@ export default async function AdminInvoicesPage() {
                   </span>
                 </td>
                 <td>
-                  {invoice.hosted_invoice_url && (
-                    <a href={invoice.hosted_invoice_url} target="_blank" rel="noopener noreferrer" className="btn btn--ghost btn--sm">
-                      View
-                    </a>
-                  )}
+                  <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+                    {invoice.hosted_invoice_url && (
+                      <a href={invoice.hosted_invoice_url} target="_blank" rel="noopener noreferrer" className="btn btn--ghost btn--sm">
+                        View
+                      </a>
+                    )}
+                    <DeleteRecordButton table="invoices" id={invoice.id} label={`this invoice record for ${invoice.client_name} (the Stripe invoice is not voided)`} />
+                  </div>
                 </td>
               </tr>
             ))}

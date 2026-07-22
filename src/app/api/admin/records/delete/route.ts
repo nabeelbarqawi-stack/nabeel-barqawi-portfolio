@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { SESSION_COOKIE, isValidSession } from "@/proxy";
 
-// Only these tables may be deleted from the admin UI. Invoices are excluded on
-// purpose — they mirror Stripe and shouldn't be removed by a row delete.
-const DELETABLE = new Set(["contact_messages", "leads"]);
+// Only these tables may be deleted from the admin UI. Deleting an invoice row
+// removes the LOCAL record only — it does NOT void the invoice in Stripe.
+const DELETABLE = new Set(["contact_messages", "leads", "invoices"]);
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export async function POST(request: Request) {
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   } catch (err) {
     console.error("[admin/records/delete] failed", err);
     return NextResponse.json(
-      { error: "Couldn't delete — it may be referenced by an invoice." },
+      { error: "Couldn't delete — the record may still be referenced elsewhere." },
       { status: 500 },
     );
   }

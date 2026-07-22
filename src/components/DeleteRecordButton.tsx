@@ -8,7 +8,7 @@ export default function DeleteRecordButton({
   id,
   label = "this record",
 }: {
-  table: "contact_messages" | "leads";
+  table: "contact_messages" | "leads" | "invoices";
   id: string;
   label?: string;
 }) {
