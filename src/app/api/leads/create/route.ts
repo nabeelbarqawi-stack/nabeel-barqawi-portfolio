@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getProgram } from "@/lib/programs";
 import { getOpenCohort, supabaseAdmin } from "@/lib/supabase-admin";
-import { notifyFormspree } from "@/lib/formspree";
 import { sendLeadReceivedEmail, sendAdminAlert } from "@/lib/resend";
 
 export async function POST(request: Request) {
@@ -37,13 +36,6 @@ export async function POST(request: Request) {
     });
 
     if (error) throw error;
-
-    await notifyFormspree({
-      name,
-      email,
-      message: `New lead — ${program.name}${message ? `\n\nNote from client: ${message}` : ""}`,
-      _subject: `New lead: ${program.name}`,
-    });
 
     await sendLeadReceivedEmail({ to: email, name, program });
     await sendAdminAlert({

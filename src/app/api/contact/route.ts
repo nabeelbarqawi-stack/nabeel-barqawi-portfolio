@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { notifyFormspree } from "@/lib/formspree";
 import { sendAdminAlert } from "@/lib/resend";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,17 +35,9 @@ export async function POST(request: Request) {
 
     if (error) throw error;
 
-    // Best-effort email notification (mirrors the leads flow). A Formspree
-    // failure is logged inside notifyFormspree and must not fail the request,
-    // since the submission is already saved.
+    // Best-effort email alert. Failures are logged inside sendAdminAlert and
+    // must not fail the request, since the submission is already saved.
     const subject = `New message${intent ? `: ${intent}` : ""} — ${cleanName}`;
-    await notifyFormspree({
-      name: cleanName,
-      email: cleanEmail,
-      form_type: intent?.trim() || "Contact",
-      message: message?.trim() || "(no note)",
-      _subject: subject,
-    });
     await sendAdminAlert({
       subject,
       source: intent?.trim() || "Contact",

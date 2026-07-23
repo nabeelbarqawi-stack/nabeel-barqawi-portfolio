@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { notifyFormspree } from "@/lib/formspree";
 import { sendAdminAlert } from "@/lib/resend";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,12 +26,7 @@ export async function POST(request: Request) {
     });
     if (error) throw error;
 
-    // Best-effort email alert (same channel as the other forms).
-    await notifyFormspree({
-      email: cleanEmail,
-      form_type: intent,
-      _subject: `New signup: ${intent}`,
-    });
+    // Best-effort email alert.
     await sendAdminAlert({
       subject: `New signup: ${intent}`,
       source: intent,

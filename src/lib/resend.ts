@@ -44,8 +44,7 @@ export async function sendLeadReceivedEmail(params: { to: string; name: string; 
 
 /**
  * Notifies you (ADMIN_EMAIL) about a new form submission or payment. Best-effort:
- * logs and swallows failures so it never breaks the request. Runs alongside the
- * Formspree alert for now.
+ * logs and swallows failures so it never breaks the request.
  */
 export async function sendAdminAlert(params: {
   subject: string;
