@@ -21,7 +21,7 @@ export default async function AdminHomePage() {
 
   const cards = [
     { href: "/admin/leads", stat: leads, title: "Leads", desc: "Everyone who filled out a program sign-up form." },
-    { href: "/admin/messages", stat: messages, title: "Messages", desc: "Community / contact form submissions — name, email, and note." },
+    { href: "/admin/messages", stat: messages, title: "Database", desc: "Everyone who's reached out — form submissions and imported contacts." },
     { href: "/admin/invoices", stat: invoices, title: "Invoices", desc: "Every invoice sent, its status, and a link to create a new one." },
   ];
 
@@ -30,7 +30,7 @@ export default async function AdminHomePage() {
       <div className="admin-toolbar">
         <div>
           <h1 className="admin-title">Dashboard</h1>
-          <p className="admin-subtitle">Leads, messages, invoices, and payments in one place.</p>
+          <p className="admin-subtitle">Leads, contact database, invoices, and payments in one place.</p>
         </div>
         <Link href="/admin/invoices/new" className="btn btn--primary btn--sm">
           New invoice

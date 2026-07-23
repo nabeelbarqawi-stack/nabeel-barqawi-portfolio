@@ -28,8 +28,8 @@ export default async function AdminMessagesPage() {
     <div className="admin-container">
       <div className="admin-toolbar">
         <div>
-          <h1 className="admin-title">Messages</h1>
-          <p className="admin-subtitle">Everyone who submitted the &ldquo;Join the community&rdquo; form.</p>
+          <h1 className="admin-title">Database</h1>
+          <p className="admin-subtitle">Everyone who&apos;s reached out — form submissions and imported contacts.</p>
         </div>
       </div>
 
