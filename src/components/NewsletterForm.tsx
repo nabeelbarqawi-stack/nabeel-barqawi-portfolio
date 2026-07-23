@@ -1,13 +1,12 @@
 "use client";
 
-import type { CSSProperties } from "react";
-import { useForm, ValidationError } from "@formspree/react";
+import { useState, type CSSProperties } from "react";
 import { CheckCircle } from "@phosphor-icons/react";
 
 type Props = {
   /** label on the submit button */
   buttonText: string;
-  /** hidden form_type value so submissions are identifiable in Formspree */
+  /** source label — stored as the Database "Source" and identifies the box */
   source: string;
   placeholder?: string;
   center?: boolean;
@@ -35,9 +34,39 @@ export default function NewsletterForm({
   helper,
   darkInput = false,
 }: Props) {
-  const [state, handleSubmit] = useForm("xqewjded");
+  const [submitting, setSubmitting] = useState(false);
+  const [succeeded, setSucceeded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  if (state.succeeded) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const email = String(new FormData(e.currentTarget).get("email") || "").trim();
+
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source }),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setError(data.error || "Something went wrong — please try again.");
+        setSubmitting(false);
+        return;
+      }
+
+      setSucceeded(true);
+    } catch {
+      setError("Network error — please try again.");
+      setSubmitting(false);
+    }
+  }
+
+  if (succeeded) {
     if (successVariant === "boxed") {
       return (
         <div style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "16px 26px", borderRadius: 14, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)" }}>
@@ -65,7 +94,6 @@ export default function NewsletterForm({
   return (
     <div>
       <form onSubmit={handleSubmit} style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: center ? "center" : "flex-start" }}>
-        <input type="hidden" name="form_type" value={source} />
         <input
           name="email"
           type="email"
@@ -75,11 +103,13 @@ export default function NewsletterForm({
           className="nb-input"
           style={inputStyle}
         />
-        <button type="submit" className="btn-primary" disabled={state.submitting} style={{ padding: "15px 28px", borderRadius: 12, fontSize: 15, whiteSpace: "nowrap" }}>
-          {state.submitting ? "…" : buttonText}
+        <button type="submit" className="btn-primary" disabled={submitting} style={{ padding: "15px 28px", borderRadius: 12, fontSize: 15, whiteSpace: "nowrap" }}>
+          {submitting ? "…" : buttonText}
         </button>
       </form>
-      <ValidationError field="email" prefix="Email" errors={state.errors} style={{ fontSize: 12, color: "#ff8a8a", marginTop: 8, textAlign: center ? "center" : "left" }} />
+      {error && (
+        <div style={{ fontSize: 12, color: "#ff8a8a", marginTop: 8, textAlign: center ? "center" : "left" }}>{error}</div>
+      )}
       {helper && (
         <div style={{ fontSize: 13, color: "#7d7b93", marginTop: 14, textAlign: center ? "center" : "left" }}>{helper}</div>
       )}
