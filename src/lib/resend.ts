@@ -2,6 +2,9 @@ import { Resend } from "resend";
 import type { Program } from "./programs";
 
 const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+// Where form-submission / payment alerts are sent. With the sandbox sender
+// (onboarding@resend.dev) Resend only delivers to your own Resend-account email.
+const ADMIN_EMAIL = "nabeelbarqawi@gmail.com";
 
 // Lazily constructed so `next build` succeeds without RESEND_API_KEY.
 let client: Resend | null = null;
@@ -36,5 +39,41 @@ export async function sendLeadReceivedEmail(params: { to: string; name: string; 
     }
   } catch (err) {
     console.error("[resend] sendLeadReceivedEmail failed", err);
+  }
+}
+
+/**
+ * Notifies you (ADMIN_EMAIL) about a new form submission or payment. Best-effort:
+ * logs and swallows failures so it never breaks the request. Runs alongside the
+ * Formspree alert for now.
+ */
+export async function sendAdminAlert(params: {
+  subject: string;
+  source?: string;
+  name?: string;
+  email?: string;
+  message?: string;
+}) {
+  const { subject, source, name, email, message } = params;
+  try {
+    const rows = [
+      source && `<p style="margin:4px 0"><strong>Source:</strong> ${source}</p>`,
+      name && `<p style="margin:4px 0"><strong>Name:</strong> ${name}</p>`,
+      email && `<p style="margin:4px 0"><strong>Email:</strong> ${email}</p>`,
+      message && `<p style="margin:12px 0 0"><strong>Message:</strong><br/>${message.replace(/\n/g, "<br/>")}</p>`,
+    ]
+      .filter(Boolean)
+      .join("");
+
+    const { error } = await getResend().emails.send({
+      from: `Portfolio <${RESEND_FROM_EMAIL}>`,
+      to: ADMIN_EMAIL,
+      replyTo: email || undefined,
+      subject,
+      html: `<div style="font-family:-apple-system,sans-serif;max-width:520px;color:#0E0E12">${rows || "<p>New submission.</p>"}</div>`,
+    });
+    if (error) console.error("[resend] sendAdminAlert rejected", error);
+  } catch (err) {
+    console.error("[resend] sendAdminAlert failed", err);
   }
 }

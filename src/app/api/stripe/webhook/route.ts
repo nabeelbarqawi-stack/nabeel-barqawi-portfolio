@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { notifyFormspree } from "@/lib/formspree";
+import { sendAdminAlert } from "@/lib/resend";
 
 
 
@@ -62,11 +63,19 @@ export async function POST(request: Request) {
       }
     }
 
+    const paidMsg = `Invoice paid — ${invoice.description} — $${(invoice.amount_cents / 100).toFixed(2)}`;
     await notifyFormspree({
       name: invoice.client_name,
       email: invoice.client_email,
-      message: `Invoice paid — ${invoice.description} — $${(invoice.amount_cents / 100).toFixed(2)}`,
+      message: paidMsg,
       _subject: `Invoice paid: ${invoice.client_name}`,
+    });
+    await sendAdminAlert({
+      subject: `Invoice paid: ${invoice.client_name}`,
+      source: "Payment",
+      name: invoice.client_name,
+      email: invoice.client_email,
+      message: paidMsg,
     });
 
     return NextResponse.json({ received: true });

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getProgram } from "@/lib/programs";
 import { getOpenCohort, supabaseAdmin } from "@/lib/supabase-admin";
 import { notifyFormspree } from "@/lib/formspree";
-import { sendLeadReceivedEmail } from "@/lib/resend";
+import { sendLeadReceivedEmail, sendAdminAlert } from "@/lib/resend";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => ({}));
@@ -46,6 +46,13 @@ export async function POST(request: Request) {
     });
 
     await sendLeadReceivedEmail({ to: email, name, program });
+    await sendAdminAlert({
+      subject: `New lead: ${program.name}`,
+      source: `Lead — ${program.name}`,
+      name,
+      email,
+      message: message || undefined,
+    });
 
     return NextResponse.json({ ok: true });
   } catch (err) {

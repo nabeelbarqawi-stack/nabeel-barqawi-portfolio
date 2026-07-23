@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { notifyFormspree } from "@/lib/formspree";
+import { sendAdminAlert } from "@/lib/resend";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -31,6 +32,11 @@ export async function POST(request: Request) {
       email: cleanEmail,
       form_type: intent,
       _subject: `New signup: ${intent}`,
+    });
+    await sendAdminAlert({
+      subject: `New signup: ${intent}`,
+      source: intent,
+      email: cleanEmail,
     });
 
     return NextResponse.json({ ok: true });
